@@ -371,6 +371,16 @@ body {
   opacity: 1;
 } 
 
+/* Remover fade/sombra do final da lista de canais */
+#channels-container::after,
+#channels-container::before {
+  display: none !important;
+  background: none !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  content: none !important;
+}
+
 /* Estilos para os botões de chat simplificados */
 #chat-buttons button {
   margin-right: 4px;
@@ -440,4 +450,11 @@ body {
   object-fit: cover;
   border-radius: 50%;
   box-sizing: border-box;
+} 
+
+#channels-container {
+  overflow: visible !important;
+}
+#channels-container button {
+  overflow: visible !important;
 } 

@@ -569,29 +569,44 @@ function applyRGBBorder(img) {
 function createOrUpdateGlobalRGBEffect(channel) {
   // Remove se já existir
   removeGlobalRGBEffect(channel);
-  const avatarDiv = document.getElementById(`avatar-${channel}`);
-  if (!avatarDiv) return;
-  const img = avatarDiv.querySelector('img');
-  if (!img) return;
-  // Pega posição absoluta do avatar na tela
-  const rect = img.getBoundingClientRect();
-  // Pega o border-radius real do avatar
-  const computedStyle = window.getComputedStyle(img);
-  const borderRadius = computedStyle.borderRadius;
-  // Cria o elemento RGB
-  const rgbDiv = document.createElement('div');
-  rgbDiv.id = `global-rgb-${channel}`;
-  rgbDiv.style.position = 'fixed';
-  rgbDiv.style.left = `${rect.left}px`;
-  rgbDiv.style.top = `${rect.top}px`;
-  rgbDiv.style.width = `${rect.width}px`;
-  rgbDiv.style.height = `${rect.height}px`;
-  rgbDiv.style.pointerEvents = 'none';
-  rgbDiv.style.zIndex = 9999;
-  rgbDiv.style.borderRadius = borderRadius;
-  rgbDiv.style.boxShadow = '0 0 0 3px #fff, 0 0 10px 2px #00f, 0 0 20px 4px #0ff, 0 0 15px 3px #0f0, 0 0 20px 4px #ff0, 0 0 25px 5px #f00';
-  rgbDiv.style.animation = 'rgb-border 2s linear infinite';
-  document.body.appendChild(rgbDiv);
+  
+  // Delay adicional para garantir que o DOM esteja estável
+  setTimeout(() => {
+    const avatarDiv = document.getElementById(`avatar-${channel}`);
+    if (!avatarDiv) return;
+    const img = avatarDiv.querySelector('img');
+    if (!img) return;
+    
+    // Pega posição absoluta do avatar na tela
+    const rect = img.getBoundingClientRect();
+    
+    // Verifica se o avatar está visível na tela
+    if (rect.width === 0 || rect.height === 0) {
+      console.log(`Avatar do canal ${channel} não está visível, tentando novamente...`);
+      // Tenta novamente após um delay maior
+      setTimeout(() => createOrUpdateGlobalRGBEffect(channel), 1000);
+      return;
+    }
+    
+    // Pega o border-radius real do avatar
+    const computedStyle = window.getComputedStyle(img);
+    const borderRadius = computedStyle.borderRadius;
+    
+    // Cria o elemento RGB
+    const rgbDiv = document.createElement('div');
+    rgbDiv.id = `global-rgb-${channel}`;
+    rgbDiv.style.position = 'fixed';
+    rgbDiv.style.left = `${rect.left}px`;
+    rgbDiv.style.top = `${rect.top}px`;
+    rgbDiv.style.width = `${rect.width}px`;
+    rgbDiv.style.height = `${rect.height}px`;
+    rgbDiv.style.pointerEvents = 'none';
+    rgbDiv.style.zIndex = 9999;
+    rgbDiv.style.borderRadius = borderRadius;
+    rgbDiv.style.boxShadow = '0 0 0 3px #fff, 0 0 10px 2px #00f, 0 0 20px 4px #0ff, 0 0 15px 3px #0f0, 0 0 20px 4px #ff0, 0 0 25px 5px #f00';
+    rgbDiv.style.animation = 'rgb-border 2s linear infinite';
+    document.body.appendChild(rgbDiv);
+  }, 100); // 100ms de delay adicional
 }
 function removeGlobalRGBEffect(channel) {
   const rgbDiv = document.getElementById(`global-rgb-${channel}`);
@@ -658,11 +673,14 @@ function updateAvatarBorder(channel) {
     isOnServer = minecraftPlayersOnline.includes(streamerName);
   }
   if (isOnline && isMinecraft && isOnServer) {
-    // Efeito RGB global
-    createOrUpdateGlobalRGBEffect(channel);
-    avatarDiv.style.overflow = 'visible';
-    avatarDiv.classList.add('avatar-rgb');
-    img.title = 'Este canal pode estár com drop de chaves ativo';
+    // Delay para garantir que o canal esteja na posição correta antes de aplicar RGB
+    setTimeout(() => {
+      // Efeito RGB global
+      createOrUpdateGlobalRGBEffect(channel);
+      avatarDiv.style.overflow = 'visible';
+      avatarDiv.classList.add('avatar-rgb');
+      img.title = 'Este canal pode estár com drop de chaves ativo';
+    }, 500); // 500ms de delay
   } else {
     removeGlobalRGBEffect(channel);
     if (isOnline) {
@@ -1006,6 +1024,12 @@ async function updateAllChannelsListSmooth() {
     if (id && !twitchChannels[id]) {
       child.remove();
     }
+  });
+
+  // Fazer scroll para o topo após atualizar a lista
+  container.scrollTo({
+    top: 0,
+    behavior: 'smooth'
   });
 }
 

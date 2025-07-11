@@ -290,7 +290,7 @@ body {
 
 /* Estilos para os botões dos canais dentro do container com scroll */
 #channels-container button {
-  margin-bottom: 8px;
+  margin-bottom: 3px;
   transition: all 0.2s ease;
 }
 
@@ -300,7 +300,7 @@ body {
 
 /* Melhor espaçamento interno dos botões */
 #channels-container button {
-  padding: 8px 12px;
+  padding: 3px 6px;
 }
 
 /* Efeito hover mais suave */
@@ -324,7 +324,7 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #4f545c #2b2d31;
   /* Adicionar padding para evitar que o conteúdo toque nas bordas */
-  padding: 8px 4px 8px 0;
+  padding: 3px 2px 3px 0;
   /* Melhorar a experiência de scroll */
   scroll-behavior: smooth;
   /* Garantir que o container tenha altura adequada */

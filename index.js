@@ -356,22 +356,18 @@ function updateChatButtons() {
 
 // Função para destacar o botão do chat ativo
 function highlightActiveChatButton(activeChannel) {
-  // Remover destaque de todos os botões de chat
-  const allChatButtons = document.querySelectorAll('[id^="chat-avatar-"]');
-  allChatButtons.forEach(button => {
-    const parentButton = button.closest('button');
-    if (parentButton) {
-      parentButton.classList.remove('ring-2', 'ring-white', 'ring-opacity-50');
-    }
+  // Remover borda verde de todos os avatares
+  const allChatAvatars = document.querySelectorAll('[id^="chat-avatar-"] img');
+  allChatAvatars.forEach(img => {
+    img.classList.remove('border-green-500');
+    img.classList.add('border-gray-500');
   });
-  
-  // Destacar o botão ativo
-  const activeButton = document.querySelector(`[id="chat-avatar-${activeChannel}"]`);
-  if (activeButton) {
-    const parentButton = activeButton.closest('button');
-    if (parentButton) {
-      parentButton.classList.add('ring-2', 'ring-white', 'ring-opacity-50');
-    }
+
+  // Adicionar borda verde ao avatar do chat ativo
+  const activeAvatar = document.querySelector(`#chat-avatar-${activeChannel} img`);
+  if (activeAvatar) {
+    activeAvatar.classList.remove('border-gray-500');
+    activeAvatar.classList.add('border-green-500');
   }
 }
 

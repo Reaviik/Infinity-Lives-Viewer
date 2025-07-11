@@ -131,6 +131,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: visible !important;
 }
 .lateral-direita {
   box-shadow: -2px 0 8px -4px #00000060;
@@ -178,8 +179,10 @@ body {
 #channels-container {
   flex: 1 1 0%;
   height: 100%;
+  margin-bottom: 5px;
   display: flex;
   flex-direction: column;
+  border-radius: 0.375rem;
 } 
 
 /* Estilos modernos para o scroll dos canais */
@@ -453,16 +456,16 @@ body {
 } 
 
 #channels-container {
-  overflow: visible !important;
-}
-#channels-container button {
-  overflow: visible !important;
-} 
-
-#channels-container {
-  overflow-x: hidden !important;
   overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+.avatar-rgb {
+  position: relative;
+  z-index: 2;
+  overflow: visible !important;
 }
 #channels-container button {
   overflow: visible !important;
-} 
+  position: relative;
+  z-index: 1;
+}

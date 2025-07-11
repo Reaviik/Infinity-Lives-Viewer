@@ -13,14 +13,16 @@ const twitchChannels = {
   arondesu0:     { name: 'AronDesu0',     color: 'bg-blue-500',   type: 'normal' },
   tsdesert:      { name: 'TsDesert',      color: 'bg-pink-500',   type: 'iniciante' },
   ofirofiro:     { name: 'OfirOfiro',     color: 'bg-pink-500',   type: 'iniciante' },
+  wansinhoo:     { name: 'Wansinhoo',     color: 'bg-pink-500',   type: 'desertor' },
 };
 
-//const URL = 'robsomchatmanager.netlify.app';
-const URL = 'localhost&parent=127.0.0.1';
+const URL = 'robsomchatmanager.netlify.app';
+//Mantenha este comentario
+//const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {
-  const baseClasses = 'flex items-center space-x-2 mt-1 w-full hover:bg-gray-700 rounded px-2 py-1 transition relative min-h-[56px]'; // min-h-[56px] para altura igual
+  const baseClasses = 'flex items-center space-x-2 mt-1 w-full hover:bg-gray-700 rounded px-2 py-1 transition relative min-h-[56px]';
   let typeClasses = '';
   if (channelConfig.type === 'premium') {
     typeClasses = 'bg-gradient-to-r from-yellow-900 via-yellow-800 to-yellow-700 shadow-lg';
@@ -28,66 +30,132 @@ function getChannelButtonClasses(channelConfig) {
     typeClasses = 'bg-gradient-to-r from-purple-900 via-purple-800 to-purple-700 shadow-lg';
   } else if (channelConfig.type === 'normal') {
     typeClasses = 'bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 shadow-lg';
+  } else if (channelConfig.type === 'iniciante') {
+    typeClasses = 'bg-gray-400 bg-opacity-40 border border-gray-500 shadow';
+  } else if (channelConfig.type === 'desertor') {
+    typeClasses = 'bg-gray-200 bg-opacity-10 backdrop-blur-md shadow';
   } else {
-    // iniciante - sem background colorido, apenas sombra
     typeClasses = 'shadow-lg';
   }
   return `${baseClasses} ${typeClasses}`;
 }
+
 // Lista de lives abertas (ordem importa)
 let openLives = [];
 const MAX_LIVES = 4;
-
-// Objeto para guardar status anterior dos canais
 const previousStatus = {};
+
+// Função para tocar som de alerta
+function playAlertSound() {
+  try {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Configurar o som
+    oscillator.frequency.setValueAtTime(800, audioContext.currentTime); // Frequência do beep
+    oscillator.type = 'sine';
+    
+    // Configurar volume e envelope
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    
+    // Tocar o som
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+    
+    // Repetir o beep após 200ms
+    setTimeout(() => {
+      const oscillator2 = audioContext.createOscillator();
+      const gainNode2 = audioContext.createGain();
+      
+      oscillator2.connect(gainNode2);
+      gainNode2.connect(audioContext.destination);
+      
+      oscillator2.frequency.setValueAtTime(1000, audioContext.currentTime);
+      oscillator2.type = 'sine';
+      
+      gainNode2.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode2.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+      gainNode2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+      
+      oscillator2.start(audioContext.currentTime);
+      oscillator2.stop(audioContext.currentTime + 0.3);
+    }, 200);
+    
+  } catch (error) {
+    console.log('Erro ao tocar som de alerta:', error);
+  }
+}
 
 // Função para exibir card animado de 'Online agora'
 function showOnlineNowCard(channel) {
-  const livesArea = document.querySelector('.lateral-esquerda.lateral-direita') || document.getElementById('lives-container').parentElement;
-  if (!livesArea) return;
+  const container = document.getElementById('channels-container');
+  if (!container) return;
+  
   const channelConfig = twitchChannels[channel];
   const avatarUrl = document.getElementById(`avatar-${channel}`)?.querySelector('img')?.src;
-
-  // Cria o card
-  const card = document.createElement('div');
-  card.className = 'fixed left-0 top-24 z-50 bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slide-in';
-  card.style.minWidth = '260px';
-  card.style.maxWidth = '90vw';
-  card.style.fontWeight = 'bold';
-  card.style.fontSize = '1.1rem';
-
-  card.innerHTML = `
-    <div class="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-gray-900 border-2 border-white">
-      ${avatarUrl ? `<img src='${avatarUrl}' class='w-full h-full object-cover'/>` : channelConfig.name.charAt(0)}
+  
+  // Tocar som de alerta
+  playAlertSound();
+  
+  // Criar card de notificação
+  const notificationCard = document.createElement('div');
+  notificationCard.id = `notification-${channel}`;
+  notificationCard.className = getChannelButtonClasses(channelConfig).replace('hover:bg-gray-700', 'hover:bg-green-700') + ' bg-green-600 animate-pulse';
+  notificationCard.style.animation = 'pulse 2s infinite';
+  
+  notificationCard.innerHTML = `
+    <div class="relative">
+      <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="notification-avatar-${channel}">${channelConfig.name.charAt(0)}</div>
     </div>
-    <div>
-      <div>Online agora!</div>
-      <div class='font-semibold'>${channelConfig.name}</div>
+    <div class="flex-1 relative overflow-hidden text-left flex flex-col items-start justify-center">
+      <div class="text-white font-semibold">${channelConfig.name}</div>
+      <div class="text-green-200 text-xs font-bold">🟢 ONLINE AGORA!</div>
     </div>
+    <div id="notification-status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-gray-850 animate-pulse"></div>
   `;
-
-  document.body.appendChild(card);
-
-  // Animação: slide in
-  card.animate([
-    { transform: 'translateX(-120%)', opacity: 0 },
-    { transform: 'translateX(0)', opacity: 1 }
-  ], {
-    duration: 500,
-    fill: 'forwards'
-  });
-
-  // Remove após 4 segundos
+  
+  // Adicionar evento de clique para abrir a live
+  notificationCard.onclick = () => {
+    toggleLive(channel);
+    removeNotificationCard(channel);
+  };
+  
+  // Adicionar no topo da lista
+  container.insertBefore(notificationCard, container.firstChild);
+  
+  // Carregar avatar do canal na notificação
+  if (avatarUrl) {
+    const notificationAvatarDiv = document.getElementById(`notification-avatar-${channel}`);
+    if (notificationAvatarDiv) {
+      notificationAvatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full object-cover border-2 border-green-400" />`;
+      notificationAvatarDiv.style.background = 'none';
+      notificationAvatarDiv.style.color = 'transparent';
+    }
+  }
+  
+  // Remover após 10 segundos
   setTimeout(() => {
-    card.animate([
-      { transform: 'translateX(0)', opacity: 1 },
-      { transform: 'translateX(-120%)', opacity: 0 }
-    ], {
-      duration: 400,
-      fill: 'forwards'
-    });
-    setTimeout(() => card.remove(), 400);
-  }, 4000);
+    removeNotificationCard(channel);
+  }, 10000);
+}
+
+// Função para remover o card de notificação
+function removeNotificationCard(channel) {
+  const notificationCard = document.getElementById(`notification-${channel}`);
+  if (notificationCard) {
+    notificationCard.style.animation = 'fadeOut 0.5s ease-out';
+    setTimeout(() => {
+      if (notificationCard.parentNode) {
+        notificationCard.parentNode.removeChild(notificationCard);
+      }
+    }, 500);
+  }
 }
 
 // Função para verificar status online dos streamers usando a API GraphQL da Twitch
@@ -477,7 +545,7 @@ fetchMinecraftPlayers();
 
 // Função para aplicar borda RGB
 function applyRGBBorder(img) {
-  img.style.boxShadow = '0 0 0 3px #fff, 0 0 10px 2px #00f, 0 0 20px 4px #0ff, 0 0 30px 6px #0f0, 0 0 40px 8px #ff0, 0 0 50px 10px #f00';
+  img.style.boxShadow = '0 0 0 3px #fff, 0 0 10px 2px #00f, 0 0 20px 4px #0ff, 0 0 15px 3px #0f0, 0 0 20px 4px #ff0, 0 0 25px 5px #f00';
   img.style.animation = 'rgb-border 2s linear infinite';
 }
 // Adicionar keyframes RGB se não existir
@@ -496,6 +564,76 @@ function applyRGBBorder(img) {
     document.head.appendChild(style);
   }
 })();
+
+// ========== EFEITO RGB GLOBAL (fora do container) =============
+function createOrUpdateGlobalRGBEffect(channel) {
+  // Remove se já existir
+  removeGlobalRGBEffect(channel);
+  const avatarDiv = document.getElementById(`avatar-${channel}`);
+  if (!avatarDiv) return;
+  const img = avatarDiv.querySelector('img');
+  if (!img) return;
+  // Pega posição absoluta do avatar na tela
+  const rect = img.getBoundingClientRect();
+  // Pega o border-radius real do avatar
+  const computedStyle = window.getComputedStyle(img);
+  const borderRadius = computedStyle.borderRadius;
+  // Cria o elemento RGB
+  const rgbDiv = document.createElement('div');
+  rgbDiv.id = `global-rgb-${channel}`;
+  rgbDiv.style.position = 'fixed';
+  rgbDiv.style.left = `${rect.left}px`;
+  rgbDiv.style.top = `${rect.top}px`;
+  rgbDiv.style.width = `${rect.width}px`;
+  rgbDiv.style.height = `${rect.height}px`;
+  rgbDiv.style.pointerEvents = 'none';
+  rgbDiv.style.zIndex = 9999;
+  rgbDiv.style.borderRadius = borderRadius;
+  rgbDiv.style.boxShadow = '0 0 0 3px #fff, 0 0 10px 2px #00f, 0 0 20px 4px #0ff, 0 0 15px 3px #0f0, 0 0 20px 4px #ff0, 0 0 25px 5px #f00';
+  rgbDiv.style.animation = 'rgb-border 2s linear infinite';
+  document.body.appendChild(rgbDiv);
+}
+function removeGlobalRGBEffect(channel) {
+  const rgbDiv = document.getElementById(`global-rgb-${channel}`);
+  if (rgbDiv) rgbDiv.remove();
+}
+function updateAllGlobalRGBEffects() {
+  // Atualiza posição de todos os efeitos RGB globais
+  document.querySelectorAll('[id^="global-rgb-"]').forEach(div => {
+    const channel = div.id.replace('global-rgb-', '');
+    const avatarDiv = document.getElementById(`avatar-${channel}`);
+    if (!avatarDiv) { div.remove(); return; }
+    const img = avatarDiv.querySelector('img');
+    if (!img) { div.remove(); return; }
+    const rect = img.getBoundingClientRect();
+    // Pega o border-radius real do avatar
+    const computedStyle = window.getComputedStyle(img);
+    const borderRadius = computedStyle.borderRadius;
+    // Verifica se está visível dentro do container
+    const container = document.getElementById('channels-container');
+    if (container) {
+      const containerRect = container.getBoundingClientRect();
+      if (rect.bottom < containerRect.top || rect.top > containerRect.bottom) {
+        // Fora da área visível, remove o RGB
+        div.remove();
+        return;
+      }
+      if (rect.top < containerRect.top) {
+        // Se o topo do avatar está acima do topo do container, remove o RGB
+        div.remove();
+        return;
+      }
+    }
+    div.style.left = `${rect.left}px`;
+    div.style.top = `${rect.top}px`;
+    div.style.width = `${rect.width}px`;
+    div.style.height = `${rect.height}px`;
+    div.style.borderRadius = borderRadius;
+  });
+}
+window.addEventListener('scroll', updateAllGlobalRGBEffects, true);
+window.addEventListener('resize', updateAllGlobalRGBEffects);
+// ========== FIM EFEITO RGB GLOBAL =============
 
 // Modificar updateAvatarBorder para aplicar borda RGB se for o caso
 function updateAvatarBorder(channel) {
@@ -516,31 +654,26 @@ function updateAvatarBorder(channel) {
   let isOnServer = false;
   if (window.allData && window.allData[channel] && window.allData[channel].stream) {
     const stream = window.allData[channel].stream;
-    isMinecraft = stream.game && stream.game.name && stream.game.name.toLowerCase().includes('elder');
-    isOnServer = true;
-  }
-  /*
-    if (window.allData && window.allData[channel] && window.allData[channel].stream) {
-    const stream = window.allData[channel].stream;
     isMinecraft = stream.game && stream.game.name && stream.game.name.toLowerCase().includes('minecraft');
     isOnServer = minecraftPlayersOnline.includes(streamerName);
   }
-  */
   if (isOnline && isMinecraft && isOnServer) {
-    applyRGBBorder(img);
+    // Efeito RGB global
+    createOrUpdateGlobalRGBEffect(channel);
     avatarDiv.style.overflow = 'visible';
+    avatarDiv.classList.add('avatar-rgb');
     img.title = 'Este canal pode estár com drop de chaves ativo';
-  } else if (isOnline) {
-    img.className = 'w-8 h-8 rounded-full object-cover border-2 border-green-500';
-    img.style.boxShadow = '';
-    img.style.animation = '';
-    avatarDiv.style.overflow = '';
-    img.title = '';
   } else {
-    img.className = 'w-8 h-8 rounded-full object-cover border-2 border-gray-500';
+    removeGlobalRGBEffect(channel);
+    if (isOnline) {
+      img.className = 'w-8 h-8 rounded-full object-cover border-2 border-green-500';
+    } else {
+      img.className = 'w-8 h-8 rounded-full object-cover border-2 border-gray-500';
+    }
     img.style.boxShadow = '';
     img.style.animation = '';
     avatarDiv.style.overflow = '';
+    avatarDiv.classList.remove('avatar-rgb');
     img.title = '';
   }
 }
@@ -601,7 +734,16 @@ function applyMarqueeIfNeeded(span) {
   if (!document.getElementById('marquee-style')) {
     const style = document.createElement('style');
     style.id = 'marquee-style';
-    style.innerHTML = `@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }`;
+    style.innerHTML = `
+      @keyframes marquee { 
+        0% { transform: translateX(0); } 
+        100% { transform: translateX(-50%); } 
+      }
+      @keyframes fadeOut {
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0.95); }
+      }
+    `;
     document.head.appendChild(style);
   }
 })();
@@ -634,6 +776,7 @@ function generateChannelButtons() {
         ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-purple-300 text-purple-900 rounded-full text-xs font-bold flex items-center justify-center border border-purple-500" title="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity">?</span></span>` : ''}
         ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-blue-300 text-blue-900 rounded-full text-xs font-bold flex items-center justify-center border border-blue-500" title="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity">?</span></span>` : ''}
         ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-gray-300 text-gray-800 rounded-full text-xs font-bold flex items-center justify-center border border-gray-400" title="Canal iniciante">?</span></span>` : ''}
+        ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-white text-gray-800 rounded-full text-xs font-bold flex items-center justify-center border border-gray-300" title="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades">?</span></span>` : ''}
     `;
     
     container.appendChild(button);
@@ -751,6 +894,12 @@ async function updateAllChannelsListSmooth() {
   for (const channel of Object.keys(twitchChannels)) {
     const userData = allData[channel];
     const isOnline = userData && userData.stream && userData.stream.id;
+    
+    // Detecta transição offline -> online
+    if (previousStatus[channel] === false && isOnline === true) {
+      showOnlineNowCard(channel);
+    }
+    
     previousStatus[channel] = isOnline;
     if (isOnline) {
       onlineChannels.push(channel);
@@ -792,6 +941,7 @@ async function updateAllChannelsListSmooth() {
         ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-purple-300 text-purple-900 rounded-full text-xs font-bold flex items-center justify-center border border-purple-500" title="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity">?</span></span>` : ''}
         ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-blue-300 text-blue-900 rounded-full text-xs font-bold flex items-center justify-center border border-blue-500" title="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity">?</span></span>` : ''}
         ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-gray-300 text-gray-800 rounded-full text-xs font-bold flex items-center justify-center border border-gray-400" title="Canal iniciante">?</span></span>` : ''}
+        ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-white text-gray-800 rounded-full text-xs font-bold flex items-center justify-center border border-gray-300" title="Este canal não faz mais parte dos streamers do Infinity Nexus">?</span></span>` : ''}
       `;
       container.appendChild(button);
     }
@@ -887,7 +1037,7 @@ async function openOnlineLives() {
   for (const channel of channels) {
     if (openedCount >= MAX_LIVES) break;
     
-    const isOnline = await checkStreamerStatus(channel);
+    const isOnline = previousStatus[channel];
     if (isOnline) {
       toggleLive(channel);
       openedCount++;
@@ -896,4 +1046,28 @@ async function openOnlineLives() {
       await new Promise(resolve => setTimeout(resolve, 200));
     }
   }
+}
+
+// Função para testar o aviso de canal online (para desenvolvimento)
+function testOnlineNotification(channel = 'moldador') {
+  console.log(`Testando aviso de canal online para: ${channel}`);
+  showOnlineNowCard(channel);
+}
+
+// Função para simular transição offline -> online (para desenvolvimento)
+function simulateChannelGoingOnline(channel = 'moldador') {
+  console.log(`Simulando canal ${channel} ficando online...`);
+  // Simula que o canal estava offline
+  previousStatus[channel] = false;
+  // Simula que agora está online
+  const isOnline = true;
+  previousStatus[channel] = isOnline;
+  // Dispara o aviso
+  showOnlineNowCard(channel);
+}
+
+// Função para testar apenas o som de alerta
+function testAlertSound() {
+  console.log('Testando som de alerta...');
+  playAlertSound();
 } 

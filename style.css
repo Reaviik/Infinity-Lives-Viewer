@@ -370,3 +370,34 @@ body {
 #channels-container:hover::after {
   opacity: 1;
 } 
+
+/* Estilos para os botões de chat simplificados */
+#chat-buttons button {
+  margin-right: 4px;
+  transition: all 0.2s ease;
+}
+
+#chat-buttons button:last-child {
+  margin-right: 0;
+}
+
+/* Efeito hover para botões de chat */
+#chat-buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Layout dos botões de chat */
+#chat-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+}
+
+/* Estilo para quando não há lives abertas */
+#chat-buttons .text-gray-400 {
+  padding: 8px 12px;
+  text-align: center;
+  font-style: italic;
+} 

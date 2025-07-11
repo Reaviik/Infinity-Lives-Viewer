@@ -319,26 +319,30 @@ function updateChatButtons() {
   openLives.forEach(async (channel, index) => {
     const button = document.createElement('button');
     const channelConfig = twitchChannels[channel];
-    const colorClass = channelConfig ? channelConfig.color : 'bg-gray-600';
     
-    button.className = `chat-btn px-2 py-1 rounded ${colorClass} text-white font-bold hover:opacity-80 transition-all duration-200 transform hover:scale-105 flex items-center justify-center w-8 h-8`;
+    // Estilo simples apenas com avatar
+    button.className = 'flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-700 transition-all duration-200 p-1';
     button.onclick = () => showSidebarChat(channel);
-    button.title = `Chat de ${channel}`;
+    button.title = `Chat de ${channelConfig ? channelConfig.name : channel}`;
     
-    // Adicionar animação de entrada
-    button.style.opacity = '0';
-    button.style.transform = 'scale(0.8)';
+    // Criar apenas o avatar
+    const firstLetter = channelConfig ? channelConfig.name.charAt(0).toUpperCase() : channel.charAt(0).toUpperCase();
+    
+    button.innerHTML = `
+      <div class="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="chat-avatar-${channel}">${firstLetter}</div>
+    `;
     
     chatButtonsContainer.appendChild(button);
     
     // Buscar e exibir o avatar do canal
     const avatarUrl = await fetchTwitchAvatar(channel);
     if (avatarUrl) {
-      button.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-6 h-6 rounded-full object-cover border border-white" />`;
-    } else {
-      // Fallback para primeira letra se não conseguir o avatar
-      const firstLetter = channel.charAt(0).toUpperCase();
-      button.textContent = firstLetter;
+      const avatarDiv = button.querySelector(`#chat-avatar-${channel}`);
+      if (avatarDiv) {
+        avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full object-cover border-2" />`;
+        avatarDiv.style.background = 'none';
+        avatarDiv.style.color = 'transparent';
+      }
     }
     
     // Animar entrada do botão
@@ -353,15 +357,21 @@ function updateChatButtons() {
 // Função para destacar o botão do chat ativo
 function highlightActiveChatButton(activeChannel) {
   // Remover destaque de todos os botões de chat
-  const allChatButtons = document.querySelectorAll('.chat-btn');
+  const allChatButtons = document.querySelectorAll('[id^="chat-avatar-"]');
   allChatButtons.forEach(button => {
-    button.classList.remove('ring-2', 'ring-white', 'ring-opacity-50');
+    const parentButton = button.closest('button');
+    if (parentButton) {
+      parentButton.classList.remove('ring-2', 'ring-white', 'ring-opacity-50');
+    }
   });
   
   // Destacar o botão ativo
-  const activeButton = document.querySelector(`.chat-btn[onclick*="${activeChannel}"]`);
+  const activeButton = document.querySelector(`[id="chat-avatar-${activeChannel}"]`);
   if (activeButton) {
-    activeButton.classList.add('ring-2', 'ring-white', 'ring-opacity-50');
+    const parentButton = activeButton.closest('button');
+    if (parentButton) {
+      parentButton.classList.add('ring-2', 'ring-white', 'ring-opacity-50');
+    }
   }
 }
 

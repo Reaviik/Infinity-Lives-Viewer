@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinity Nexus Parceiros</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-800 text-gray-100 h-screen">
+  <div class="flex h-screen w-full min-h-0">
+    <!-- Coluna dos canais (agora à esquerda) -->
+    <div class="w-1/6 bg-gray-850 px-4 flex flex-col lateral-esquerda h-full min-h-0">
+      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">Canais de Live
+      </div>
+      <div id="channels-container" class="flex-1 min-h-0 overflow-x-auto whitespace-nowrap">
+        <!-- Os botões dos canais serão gerados dinamicamente aqui -->
+      </div>
+    </div>
+    <!-- Área de chat/lives (no centro) -->
+    <div class="flex-1 flex flex-col bg-gray-800 lateral-esquerda lateral-direita min-h-0">
+      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">Lives da
+        Twitch</div>
+      <div id="lives-container"
+        class="flex-1 flex flex-wrap justify-center items-start bg-gray-800 lives-padding-fix relative p-1 shadow-lg"
+        style="min-height: 400px;">
+        <!-- As lives abertas aparecerão aqui -->
+      </div>
+    </div>
+    <!-- Coluna do chat (agora à direita) -->
+    <div class="w-1/4 bg-gray-850 px-1 flex flex-col lateral-direita min-h-0">
+      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">
+        <span class="mr-4">Chat's</span>
+        <div id="chat-buttons" class="flex flex-row gap-2 min-h-[32px] ml-2">
+          <!-- Botões de chat aqui -->
+        </div>
+      </div>
+      <div id="sidebar-chat-container" class="flex-1 flex flex-col shadow-lg"></div>
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+
+</html>

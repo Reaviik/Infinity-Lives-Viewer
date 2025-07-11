@@ -160,7 +160,7 @@ function renderLives() {
       <div class="mb-2 text-center text-sm text-gray-300">Canal: <span class="font-semibold">${twitchChannels[channel] ? twitchChannels[channel].name : channel}</span></div>
       <div class='w-full aspect-w-16 aspect-h-9'>
         <iframe
-          src="https://player.twitch.tv/?channel=${channel}&parent=localhost&parent=127.0.0.1"
+          src="https://player.twitch.tv/?channel=${channel}&parent=robsomchatmanager.netlify.app"
           allowfullscreen
           frameborder="0"
           class="rounded-lg w-full h-full"
@@ -236,7 +236,7 @@ function addLiveWindow(channel) {
     <div class="mb-2 text-center text-sm text-gray-300">Canal: <span class="font-semibold">${twitchChannels[channel] ? twitchChannels[channel].name : channel}</span></div>
     <div class='w-full aspect-w-16 aspect-h-9'>
       <iframe
-        src="https://player.twitch.tv/?channel=${channel}&parent=localhost&parent=127.0.0.1"
+        src="https://player.twitch.tv/?channel=${channel}&parent=robsomchatmanager.netlify.app"
         allowfullscreen
         frameborder="0"
         class="rounded-lg w-full h-full"
@@ -265,7 +265,7 @@ function addChatIframe(channel) {
         CHAT DE <span class="font-semibold">${channelName}</span>
       </div>
       <iframe
-        src='https://www.twitch.tv/embed/${channel}/chat?parent=localhost&parent=127.0.0.1&darkpopout'
+        src='https://www.twitch.tv/embed/${channel}/chat?parent=robsomchatmanager.netlify.app&darkpopout'
         frameborder='0'
         scrolling='no'
         class='w-full h-full flex-1'

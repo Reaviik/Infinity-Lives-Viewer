@@ -187,6 +187,9 @@ function toggleLive(channel) {
   // Adicionar a janela da live primeiro
   addLiveWindow(channel);
   
+  // Ajustar tamanho das lives
+  adjustLiveSizes();
+  
   // Atualizar botões de chat com um pequeno delay
   setTimeout(() => {
     updateChatButtons();
@@ -202,6 +205,9 @@ function closeLive(channel) {
   
   // Remover apenas a janela da live
   removeLiveWindow(channel);
+  
+  // Ajustar tamanho das lives restantes
+  adjustLiveSizes();
   
   // Atualizar apenas os botões de chat (não afeta a lista lateral)
   updateChatButtons();
@@ -269,6 +275,15 @@ function addChatIframe(channel) {
   `;
   
   sidebarContainer.appendChild(chatContainer);
+}
+
+// Função para ajustar o tamanho das lives baseado na quantidade
+function adjustLiveSizes() {
+  const liveElements = document.querySelectorAll('[id^="live-"]');
+  liveElements.forEach(element => {
+    const newClass = openLives.length === 1 ? 'w-full h-full' : 'w-full md:w-1/2';
+    element.className = element.className.replace(/w-full h-full|w-full md:w-1\/2/g, newClass);
+  });
 }
 
 // Função para remover apenas uma janela específica

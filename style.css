@@ -458,3 +458,11 @@ body {
 #channels-container button {
   overflow: visible !important;
 } 
+
+#channels-container {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+#channels-container button {
+  overflow: visible !important;
+} 

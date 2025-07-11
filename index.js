@@ -7,7 +7,7 @@ const twitchChannels = {
   barbasirius:   { name: 'Obarbasirius',  color: 'bg-yellow-500', type: 'plus' },
   lobinhopelud:  { name: 'LobinhoPeludo',  color: 'bg-pink-500',   type: 'plus' },
   bhaaskara:     { name: 'Bhaaskara',     color: 'bg-green-500',  type: 'plus' },
-  lordrebechi:   { name: 'Lordrebechi',   color: 'bg-yellow-500', type: 'plus' },
+  lordrebechi:   { name: 'LordRebechi',   color: 'bg-yellow-500', type: 'plus' },
   sauletagames:  { name: 'Sauletagames',  color: 'bg-yellow-500', type: 'normal' },
   deedobr:       { name: 'DeedoBR',       color: 'bg-yellow-500', type: 'normal' },
   arondesu0:     { name: 'AronDesu0',     color: 'bg-blue-500',   type: 'normal' },
@@ -529,16 +529,19 @@ function updateAvatarBorder(channel) {
   if (isOnline && isMinecraft && isOnServer) {
     applyRGBBorder(img);
     avatarDiv.style.overflow = 'visible';
+    img.title = 'Este canal pode estár com drop de chaves ativo';
   } else if (isOnline) {
     img.className = 'w-8 h-8 rounded-full object-cover border-2 border-green-500';
     img.style.boxShadow = '';
     img.style.animation = '';
     avatarDiv.style.overflow = '';
+    img.title = '';
   } else {
     img.className = 'w-8 h-8 rounded-full object-cover border-2 border-gray-500';
     img.style.boxShadow = '';
     img.style.animation = '';
     avatarDiv.style.overflow = '';
+    img.title = '';
   }
 }
 

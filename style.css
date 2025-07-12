@@ -469,3 +469,211 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* Estilos para as barras de redimensionamento */
+.resize-handle {
+  background: #383a40;
+  transition: background-color 0.2s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.resize-handle:hover {
+  background: #4f545c !important;
+}
+
+.resize-handle:active {
+  background: #5d6268 !important;
+}
+
+/* Indicador visual durante o redimensionamento */
+.resize-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 20px;
+  background: #6d7378;
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.resize-handle:hover::before {
+  opacity: 1;
+}
+
+/* Cursor personalizado para redimensionamento */
+.resize-handle {
+  cursor: col-resize;
+  user-select: none;
+}
+
+/* Prevenir seleção de texto durante redimensionamento */
+body.resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+body.resizing * {
+  cursor: col-resize !important;
+}
+
+/* Indicador de largura durante redimensionamento */
+.resize-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 1000;
+  pointer-events: none;
+  display: none;
+}
+
+body.resizing .resize-indicator {
+  display: block;
+}
+
+/* Ajustes para as colunas redimensionáveis */
+#channels-column,
+#chat-column {
+  transition: width 0.1s ease;
+  flex-shrink: 0;
+}
+
+/* Limites de largura em vw para canais e chat */
+#channels-column {
+  min-width: 5vw;
+  max-width: 15vw;
+  width: 15vw;
+}
+
+#chat-column {
+  min-width: 1vw;
+  max-width: 50vw;
+  width: 18vw;
+}
+
+/* Quando canais estiver no mínimo, mostrar só a imagem */
+#channels-column.minimal .channel-card-content {
+  display: none;
+}
+#channels-column.minimal .channel-avatar {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ajuste para o avatar do canal */
+.channel-avatar img,
+.channel-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Garantir que as colunas mantenham suas proporções mínimas */
+#channels-column {
+  min-width: 200px;
+  max-width: 400px;
+}
+
+#chat-column {
+  min-width: 250px;
+  max-width: 600px;
+}
+
+/* Melhorar a aparência das barras de redimensionamento */
+.resize-handle {
+  background: #383a40;
+  transition: background-color 0.2s ease;
+  position: relative;
+  z-index: 10;
+  border-left: 1px solid #23272a;
+  border-right: 1px solid #23272a;
+}
+
+.resize-handle:hover {
+  background: #4f545c !important;
+}
+
+.resize-handle:active {
+  background: #5d6268 !important;
+}
+
+/* Indicador visual durante o redimensionamento */
+.resize-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 20px;
+  background: #6d7378;
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.resize-handle:hover::before {
+  opacity: 1;
+}
+
+/* Cursor personalizado para redimensionamento */
+.resize-handle {
+  cursor: col-resize;
+  user-select: none;
+}
+
+/* Prevenir seleção de texto durante redimensionamento */
+body.resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+body.resizing * {
+  cursor: col-resize !important;
+}
+
+/* Ajustes para as colunas redimensionáveis */
+#channels-column,
+#chat-column {
+  transition: width 0.1s ease;
+  flex-shrink: 0;
+}
+
+/* Garantir que a área central mantenha flex-1 */
+#lives-container {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Melhorar a responsividade durante redimensionamento */
+@media (max-width: 1200px) {
+  #channels-column {
+    max-width: 350px;
+  }
+  
+  #chat-column {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  #channels-column {
+    max-width: 300px;
+  }
+  
+  #chat-column {
+    max-width: 400px;
+  }
+}

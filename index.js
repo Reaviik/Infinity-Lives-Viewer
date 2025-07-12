@@ -16,9 +16,9 @@ const twitchChannels = {
   wansinhoo:     { name: 'Wansinhoo',     color: 'bg-pink-500',   type: 'desertor' },
 };
 
-const URL = 'robsomchatmanager.netlify.app';
+//const URL = 'robsomchatmanager.netlify.app';
 //Mantenha este comentario
-//const URL = 'localhost&parent=127.0.0.1';
+const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {
@@ -1094,4 +1094,167 @@ function simulateChannelGoingOnline(channel = 'moldador') {
 function testAlertSound() {
   console.log('Testando som de alerta...');
   playAlertSound();
+} 
+
+// ===== FUNCIONALIDADE DE REDIMENSIONAMENTO =====
+
+// Variáveis para controle do redimensionamento
+let isResizing = false;
+let currentResizeHandle = null;
+let startX = 0;
+let startWidth = 0;
+
+// Função para inicializar o redimensionamento
+function initializeResizeHandles() {
+  const resizeHandle1 = document.getElementById('resize-handle-1');
+  const resizeHandle2 = document.getElementById('resize-handle-2');
+  const channelsColumn = document.getElementById('channels-column');
+  const chatColumn = document.getElementById('chat-column');
+
+  // Configurar primeiro handle (entre canais e lives)
+  resizeHandle1.addEventListener('mousedown', (e) => {
+    startResize(e, channelsColumn, 'left');
+  });
+
+  // Configurar segundo handle (entre lives e chat)
+  resizeHandle2.addEventListener('mousedown', (e) => {
+    startResize(e, chatColumn, 'right');
+  });
+
+  // Eventos globais para o redimensionamento
+  document.addEventListener('mousemove', handleMouseMove);
+  document.addEventListener('mouseup', stopResize);
+}
+
+// Função para iniciar o redimensionamento
+function startResize(e, column, side) {
+  isResizing = true;
+  currentResizeHandle = side;
+  startX = e.clientX;
+  startWidth = column.offsetWidth;
+  document.body.classList.add('resizing');
+  // Ativar overlay
+  const overlay = document.getElementById('resize-overlay');
+  if (overlay) overlay.style.display = 'block';
+  e.preventDefault();
+}
+
+// Função utilitária para converter px para vw
+function pxToVw(px) {
+  return (px / window.innerWidth) * 100;
+}
+// Função utilitária para converter vw para px
+function vwToPx(vw) {
+  return (vw / 100) * window.innerWidth;
+}
+
+// Função para lidar com o movimento do mouse durante redimensionamento
+function handleMouseMove(e) {
+  if (!isResizing) return;
+
+  const deltaX = e.clientX - startX;
+  const viewportWidth = window.innerWidth;
+  const resizeIndicator = document.getElementById('resize-indicator');
+
+  if (currentResizeHandle === 'left') {
+    // Redimensionar coluna de canais
+    const channelsColumn = document.getElementById('channels-column');
+    const newWidthPx = Math.max(vwToPx(5), Math.min(vwToPx(15), startWidth + deltaX));
+    const newWidthVw = (newWidthPx / viewportWidth) * 100;
+    channelsColumn.style.width = `${newWidthVw}vw`;
+    
+    // Mostrar indicador de largura
+    resizeIndicator.textContent = `${newWidthVw.toFixed(1)}vw`;
+    
+    // Adiciona classe minimal se largura for <= 5vw
+    if (newWidthVw <= 5.1) {
+      channelsColumn.classList.add('minimal');
+    } else {
+      channelsColumn.classList.remove('minimal');
+    }
+  } else if (currentResizeHandle === 'right') {
+    // Redimensionar coluna de chat
+    const chatColumn = document.getElementById('chat-column');
+    const newWidthPx = Math.max(vwToPx(1), Math.min(vwToPx(50), startWidth - deltaX));
+    const newWidthVw = (newWidthPx / viewportWidth) * 100;
+    chatColumn.style.width = `${newWidthVw}vw`;
+    
+    // Mostrar indicador de largura
+    resizeIndicator.textContent = `${newWidthVw.toFixed(1)}vw`;
+  }
+}
+
+// Função para parar o redimensionamento
+function stopResize() {
+  if (!isResizing) return;
+  
+  isResizing = false;
+  currentResizeHandle = null;
+  document.body.classList.remove('resizing');
+  
+  // Esconder indicador de largura
+  const resizeIndicator = document.getElementById('resize-indicator');
+  if (resizeIndicator) {
+    resizeIndicator.style.display = 'none';
+  }
+  // Desativar overlay
+  const overlay = document.getElementById('resize-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+// Função para salvar as larguras no localStorage
+function saveColumnWidths() {
+  const channelsColumn = document.getElementById('channels-column');
+  const chatColumn = document.getElementById('chat-column');
+  
+  if (channelsColumn && chatColumn) {
+    localStorage.setItem('channelsColumnWidth', channelsColumn.style.width);
+    localStorage.setItem('chatColumnWidth', chatColumn.style.width);
+  }
+}
+
+// Função para carregar as larguras do localStorage
+function loadColumnWidths() {
+  const channelsColumn = document.getElementById('channels-column');
+  const chatColumn = document.getElementById('chat-column');
+
+  if (channelsColumn && chatColumn) {
+    const savedChannelsWidth = localStorage.getItem('channelsColumnWidth');
+    const savedChatWidth = localStorage.getItem('chatColumnWidth');
+
+    if (savedChannelsWidth) {
+      channelsColumn.style.width = savedChannelsWidth;
+      // Aplica classe minimal se necessário
+      const widthNum = parseFloat(savedChannelsWidth);
+      if (savedChannelsWidth.endsWith('vw') && widthNum <= 5.1) {
+        channelsColumn.classList.add('minimal');
+      } else {
+        channelsColumn.classList.remove('minimal');
+      }
+    }
+
+    if (savedChatWidth) {
+      chatColumn.style.width = savedChatWidth;
+    }
+  }
+}
+
+// Adicionar evento para salvar larguras quando a página for fechada
+window.addEventListener('beforeunload', saveColumnWidths);
+
+// Inicializar redimensionamento quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+  initializeResizeHandles();
+  loadColumnWidths();
+});
+
+// Inicializar redimensionamento se o DOM já estiver carregado
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeResizeHandles();
+    loadColumnWidths();
+  });
+} else {
+  initializeResizeHandles();
+  loadColumnWidths();
 } 

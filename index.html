@@ -12,13 +12,17 @@
 <body class="bg-gray-800 text-gray-100 h-screen">
   <div class="flex h-screen w-full min-h-0">
     <!-- Coluna dos canais (agora à esquerda) -->
-    <div class="w-1/6 bg-gray-850 px-4 flex flex-col lateral-esquerda h-full min-h-0">
+    <div id="channels-column" class="bg-gray-850 px-4 flex flex-col lateral-esquerda h-full min-h-0" style="width: 16.666667%; min-width: 200px; max-width: 400px;">
       <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">Canais de Live
       </div>
       <div id="channels-container" class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pr-1">
         <!-- Os botões dos canais serão gerados dinamicamente aqui -->
       </div>
     </div>
+    
+    <!-- Barra de redimensionamento entre canais e lives -->
+    <div id="resize-handle-1" class="resize-handle bg-gray-700 hover:bg-gray-600 cursor-col-resize w-2 flex-shrink-0"></div>
+    
     <!-- Área de chat/lives (no centro) -->
     <div class="flex-1 flex flex-col bg-gray-800 lateral-esquerda lateral-direita min-h-0">
       <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">Lives da
@@ -29,8 +33,12 @@
         <!-- As lives abertas aparecerão aqui -->
       </div>
     </div>
+    
+    <!-- Barra de redimensionamento entre lives e chat -->
+    <div id="resize-handle-2" class="resize-handle bg-gray-700 hover:bg-gray-600 cursor-col-resize w-2 flex-shrink-0"></div>
+    
     <!-- Coluna do chat (agora à direita) -->
-    <div class="w-1/4 bg-gray-850 px-1 flex flex-col lateral-direita min-h-0">
+    <div id="chat-column" class="bg-gray-850 px-1 flex flex-col lateral-direita min-h-0" style="width: 12.5%; min-width: 250px; max-width: 600px;">
       <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">
         <span class="mr-4">Chat's</span>
         <div id="chat-buttons" class="flex flex-row gap-2 min-h-[32px] ml-2">
@@ -40,6 +48,8 @@
       <div id="sidebar-chat-container" class="flex-1 flex flex-col shadow-lg"></div>
     </div>
   </div>
+  <div id="resize-indicator" class="resize-indicator">0vw</div>
+  <div id="resize-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:999; background:transparent;"></div>
   <script src="index.js"></script>
 </body>
 

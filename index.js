@@ -370,23 +370,13 @@ function adjustLiveSizes() {
   liveElements.forEach(element => {
     const newClass = openLives.length === 1 ? 'w-full h-full' : 'w-full md:w-1/2';
     element.className = element.className.replace(/w-full h-full|w-full md:w-1\/2/g, newClass);
-
-    // Limites padrão
+    
+    // Garantir que todos os elementos respeitem os limites de altura e largura
     element.style.maxHeight = '85vh';
     element.style.maxWidth = '95vw';
     element.style.minHeight = '200px';
     element.style.overflow = 'hidden';
     element.style.boxSizing = 'border-box';
-
-    // Quando há apenas 1 live, ocupar 100% da altura
-    if (openLives.length === 1) {
-      element.style.height = '100%';
-      element.style.maxHeight = '100vh';
-      element.style.minHeight = '100%';
-    } else {
-      // Remover altura forçada quando houver mais de uma live
-      element.style.height = '';
-    }
   });
 }
 

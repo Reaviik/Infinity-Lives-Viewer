@@ -304,18 +304,29 @@ function closeLive(channel) {
 function addLiveWindow(channel) {
   const container = document.getElementById('lives-container');
   const liveDiv = document.createElement('div');
+  
+  // Classes responsivas que respeitam vh e vw
   let liveClass = openLives.length === 1 ? 'w-full h-full' : 'w-full md:w-1/2';
   liveDiv.className = `${liveClass} bg-gray-900 rounded-lg shadow-lg p-2 flex flex-col items-center relative animate-fade-in`;
   liveDiv.id = `live-${channel}`;
+  
+  // Adicionar estilos inline para garantir responsividade em altura
+  liveDiv.style.maxHeight = '85vh';
+  liveDiv.style.maxWidth = '95vw';
+  liveDiv.style.minHeight = '200px';
+  liveDiv.style.overflow = 'hidden';
+  liveDiv.style.boxSizing = 'border-box';
+  
   liveDiv.innerHTML = `
     <button onclick="closeLive('${channel}')" class="absolute top-1 right-1 text-gray-400 hover:text-red-500 text-xl font-bold z-10">&times;</button>
     <div class="mb-2 text-center text-sm text-gray-300">Canal: <span class="font-semibold">${twitchChannels[channel] ? twitchChannels[channel].name : channel}</span></div>
-    <div class='w-full aspect-w-16 aspect-h-9'>
+    <div class='w-full' style="aspect-ratio: 16/9; min-height: 150px;">
       <iframe
         src="https://player.twitch.tv/?channel=${channel}&parent=${URL}"
         allowfullscreen
         frameborder="0"
         class="rounded-lg w-full h-full"
+        style="min-height: 150px;"
       ></iframe>
     </div>
   `;
@@ -359,6 +370,23 @@ function adjustLiveSizes() {
   liveElements.forEach(element => {
     const newClass = openLives.length === 1 ? 'w-full h-full' : 'w-full md:w-1/2';
     element.className = element.className.replace(/w-full h-full|w-full md:w-1\/2/g, newClass);
+
+    // Limites padrão
+    element.style.maxHeight = '85vh';
+    element.style.maxWidth = '95vw';
+    element.style.minHeight = '200px';
+    element.style.overflow = 'hidden';
+    element.style.boxSizing = 'border-box';
+
+    // Quando há apenas 1 live, ocupar 100% da altura
+    if (openLives.length === 1) {
+      element.style.height = '100%';
+      element.style.maxHeight = '100vh';
+      element.style.minHeight = '100%';
+    } else {
+      // Remover altura forçada quando houver mais de uma live
+      element.style.height = '';
+    }
   });
 }
 
@@ -1072,12 +1100,6 @@ async function openOnlineLives() {
   }
 }
 
-// Função para testar o aviso de canal online (para desenvolvimento)
-function testOnlineNotification(channel = 'moldador') {
-  console.log(`Testando aviso de canal online para: ${channel}`);
-  showOnlineNowCard(channel);
-}
-
 // Função para simular transição offline -> online (para desenvolvimento)
 function simulateChannelGoingOnline(channel = 'moldador') {
   console.log(`Simulando canal ${channel} ficando online...`);
@@ -1089,12 +1111,6 @@ function simulateChannelGoingOnline(channel = 'moldador') {
   // Dispara o aviso
   showOnlineNowCard(channel);
 }
-
-// Função para testar apenas o som de alerta
-function testAlertSound() {
-  console.log('Testando som de alerta...');
-  playAlertSound();
-} 
 
 // ===== FUNCIONALIDADE DE REDIMENSIONAMENTO =====
 

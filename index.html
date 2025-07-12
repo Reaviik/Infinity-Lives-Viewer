@@ -7,14 +7,14 @@
   <title>Infinity Nexus Parceiros</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-800 text-gray-100 h-screen">
-  <div class="flex h-screen w-full min-h-0">
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 h-[100vh] overflow-hidden font-inter">
+  <div class="flex flex-1 min-h-0 h-[calc(100vh-32px)] w-full">
     <!-- Coluna dos canais (agora à esquerda) -->
-    <div id="channels-column" class="bg-gray-850 px-4 flex flex-col lateral-esquerda h-full min-h-0" style="width: 16.666667%; min-width: 200px; max-width: 400px;">
-      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">Canais de Live
-      </div>
+    <div id="channels-column" class="bg-gray-850 px-1 flex flex-col lateral-esquerda h-full min-h-0" style="width: 15%; min-width: 200px; max-width: 400px;">
+      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800 rounded-t-2xl">Canais de Live</div>
       <div id="channels-container" class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pr-1">
         <!-- Os botões dos canais serão gerados dinamicamente aqui -->
       </div>
@@ -25,8 +25,10 @@
     
     <!-- Área de chat/lives (no centro) -->
     <div class="flex-1 flex flex-col bg-gray-800 lateral-esquerda lateral-direita min-h-0">
-      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">Lives da
-        Twitch</div>
+      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800 rounded-t-2xl">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616494.png" alt="Logo" class="w-10 h-10 mr-3 drop-shadow-lg" style="filter: drop-shadow(0 2px 8px #fbbf24);">
+      <span class="text-1xl font-bold tracking-wide bg-gradient-to-r from-yellow-400 via-purple-400 to-blue-400 bg-clip-text text-transparent select-none">Infinity Nexus Viewer</span>
+      </div>
       <div id="lives-container"
         class="flex-1 flex flex-wrap justify-center items-start bg-gray-800 lives-padding-fix relative p-1 shadow-lg"
         style="min-height: 400px;">
@@ -38,16 +40,17 @@
     <div id="resize-handle-2" class="resize-handle bg-gray-700 hover:bg-gray-600 cursor-col-resize w-2 flex-shrink-0"></div>
     
     <!-- Coluna do chat (agora à direita) -->
-    <div id="chat-column" class="bg-gray-850 px-1 flex flex-col lateral-direita min-h-0" style="width: 12.5%; min-width: 250px; max-width: 600px;">
-      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800">
+    <div id="chat-column" class="bg-gray-850 px-1 flex flex-col lateral-direita min-h-0" style="width: 18.5%; min-width: 250px; max-width: 600px;">
+      <div class="h-14 border-b border-gray-700 flex items-center px-6 text-lg font-semibold bg-gray-800 rounded-t-2xl">
         <span class="mr-4">Chat's</span>
-        <div id="chat-buttons" class="flex flex-row gap-2 min-h-[32px] ml-2">
+        <div id="chat-buttons" class="flex flex-row min-h-[32px] ml-2">
           <!-- Botões de chat aqui -->
         </div>
       </div>
       <div id="sidebar-chat-container" class="flex-1 flex flex-col shadow-lg"></div>
     </div>
   </div>
+  <footer class="w-full text-center py-1 text-gray-400 text-xs bg-gradient-to-r from-yellow-400/10 via-purple-400/10 to-blue-400/10 rounded-t-2xl select-none flex-shrink-0">Feito com ♥ por Infinity Nexus &mdash; Visual premium automático</footer>
   <div id="resize-indicator" class="resize-indicator">0vw</div>
   <div id="resize-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:999; background:transparent;"></div>
   <script src="index.js"></script>

@@ -1,7 +1,208 @@
+/* ===== NOVO VISUAL MODERNO E PREMIUM ===== */
 body {
-  background: #313338;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
   color: #f2f3f5;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  letter-spacing: 0.01em;
+  min-height: 100vh;
 }
+
+/* Gradiente e sombra para cabeçalhos */
+.h-14 {
+  background: linear-gradient(90deg, #232526 0%, #383a40 100%) !important;
+  box-shadow: 0 2px 8px 0 #00000030;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+/* Colunas com efeito de vidro e sombra */
+#channels-column, #chat-column {
+  background: rgba(43, 45, 49, 0.92) !important;
+  box-shadow: 0 4px 32px 0 #00000050, 0 1.5px 3px 0 #00000020;
+  backdrop-filter: blur(6px);
+}
+
+.lateral-esquerda, .lateral-direita {
+  box-shadow: none;
+}
+
+/* Cards de canal e live com efeito de elevação */
+#channels-container button, #lives-container > div {
+  background: linear-gradient(120deg, #232526 0%, #383a40 100%);
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px 0 #00000030, 0 1.5px 3px 0 #00000010;
+  border: 1.5px solid #23272a;
+  margin-bottom: 0.7rem;
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+  position: relative;
+}
+#channels-container button:hover, #lives-container > div:hover {
+  box-shadow: 0 6px 24px 0 #00000050, 0 2px 8px 0 #00000020;
+  transform: translateY(-2px) scale(1.025);
+  background: linear-gradient(120deg, #383a40 0%, #232526 100%);
+}
+
+/* Avatar destacado com borda animada */
+[id^="avatar-"] img {
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px #23272a, 0 0 12px 2px #6d28d9;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+[id^="avatar-"] img:hover {
+  box-shadow: 0 0 0 4px #fff, 0 0 24px 4px #f59e42, 0 0 32px 8px #6d28d9;
+  border: 3px solid #f59e42;
+}
+
+/* Botão de fechar live mais visível */
+#lives-container button.absolute.top-1.right-1 {
+  background: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-size: 1.7rem;
+  color: #fd5f5f;
+  box-shadow: none !important;
+  transition: color 0.2s;
+  top: -7px !important;
+  right: 1px !important;
+}
+#lives-container button.absolute.top-1.right-1:hover {
+  color: #fff;
+  background: none !important;
+}
+
+/* Gradiente animado para status online */
+.bg-red-500.animate-pulse {
+  background: linear-gradient(90deg, #ff5858 0%, #f09819 100%) !important;
+  animation: pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  box-shadow: 0 0 8px 2px #f09819;
+}
+
+/* Gradiente para tipos de canal */
+.bg-gradient-to-r.from-yellow-900 {
+  background: linear-gradient(90deg, #f59e42 0%, #fbbf24 100%) !important;
+  color: #232526 !important;
+}
+.bg-gradient-to-r.from-purple-900 {
+  background: linear-gradient(90deg, #a78bfa 0%, #6d28d9 100%) !important;
+  color: #fff !important;
+}
+.bg-gradient-to-r.from-blue-900 {
+  background: linear-gradient(90deg, #60a5fa 0%, #2563eb 100%) !important;
+  color: #fff !important;
+}
+.bg-gray-400.bg-opacity-40 {
+  background: linear-gradient(90deg, #d1d5db80 0%, #6b728080 100%) !important;
+  color: #232526 !important;
+}
+.bg-gray-200.bg-opacity-10 {
+  background: linear-gradient(90deg, #f3f4f680 0%, #d1d5db20 100%) !important;
+  color: #232526 !important;
+}
+
+/* Efeito de vidro para cards de notificação */
+[id^="notification-"] {
+  background: rgba(34,197,94,0.85) !important;
+  box-shadow: 0 4px 32px 0 #22c55e80, 0 1.5px 3px 0 #00000020;
+  border-radius: 1rem;
+  border: 2px solid #22c55e;
+  color: #fff;
+  animation: fade-in 0.5s;
+}
+
+/* Chat container com efeito de vidro */
+#sidebar-chat-container > div {
+  background: rgba(36, 37, 38, 0.92) !important;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px 0 #00000030, 0 1.5px 3px 0 #00000010;
+  border: 1.5px solid #23272a;
+  margin-bottom: 0.7rem;
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+}
+#sidebar-chat-container > div:hover {
+  box-shadow: 0 6px 24px 0 #00000050, 0 2px 8px 0 #00000020;
+  transform: translateY(-2px) scale(1.025);
+  background: rgba(36, 37, 38, 0.98) !important;
+}
+
+/* Botões de chat com efeito de destaque */
+#chat-buttons button {
+  background: linear-gradient(120deg, #232526 0%, #383a40 100%);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px 0 #00000030, 0 1.5px 3px 0 #00000010;
+  border: 2px solid #23272a;
+  margin-right: 0;
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+}
+#chat-buttons button:hover {
+  box-shadow: 0 6px 24px 0 #00000050, 0 2px 8px 0 #00000020;
+  transform: scale(1.12);
+  background: linear-gradient(120deg, #383a40 0%, #232526 100%);
+}
+/* Remove margem do último botão (não é mais necessário, mas mantido para garantir) */
+#chat-buttons button:last-child {
+  margin-right: 0;
+}
+
+/* Tooltip customizado */
+button[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  top: -2.2rem;
+  transform: translateX(-50%);
+  background: #23272a;
+  color: #fbbf24;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 0 2px 8px #00000030;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+/* Marquee animado mais suave */
+.marquee-inner {
+  animation: marquee 8s linear infinite;
+}
+
+/* Responsividade aprimorada */
+@media (max-width: 1200px) {
+  #channels-column {
+    min-width: 120px;
+    font-size: 0.95rem;
+  }
+  #chat-column {
+    min-width: 120px;
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 900px) {
+  #channels-column, #chat-column {
+    min-width: 60px;
+    font-size: 0.9rem;
+    padding: 0.2rem !important;
+  }
+  #channels-container button, #lives-container > div {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+@media (max-width: 700px) {
+  #channels-column, #chat-column {
+    display: none !important;
+  }
+  .resize-handle {
+    display: none !important;
+  }
+  #lives-container {
+    min-width: 100vw !important;
+    padding: 0 !important;
+  }
+}
+
+/* ===== FIM DO NOVO VISUAL ===== */
+
 .bg-gray-800, .bg-gray-900, .bg-gray-850 {
   background: #2b2d31 !important;
 }
@@ -386,12 +587,13 @@ body {
 
 /* Estilos para os botões de chat simplificados */
 #chat-buttons button {
-  margin-right: 4px;
+  margin-right: 0 !important;
+  padding: 0 !important;
   transition: all 0.2s ease;
 }
 
 #chat-buttons button:last-child {
-  margin-right: 0;
+  margin-right: 0 !important;
 }
 
 /* Efeito hover para botões de chat */
@@ -404,8 +606,9 @@ body {
 #chat-buttons {
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: 0 !important;
   align-items: center;
+  justify-content: flex-end;
 }
 
 /* Estilo para quando não há lives abertas */
@@ -441,6 +644,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 #chat-buttons button img {

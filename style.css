@@ -877,8 +877,7 @@ body.resizing * {
 #lives-container {
   flex: 1;
   min-width: 0;
-  max-height: calc(100vh - 120px); /* Respeita altura da viewport */
-  min-height: 400px;
+  max-height: 100%;
   overflow: hidden; /* Remove scroll */
 }
 

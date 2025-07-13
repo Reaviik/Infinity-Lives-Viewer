@@ -30,9 +30,9 @@ const twitchChannels = {
   vulkanotg:        { name: 'VulkanoTG',       color: 'bg-pink-500',   type: 'desertor' },
 };
 
-const URL = 'robsomchatmanager.netlify.app';
+//const URL = 'robsomchatmanager.netlify.app';
 //Mantenha este comentario
-//const URL = 'localhost&parent=127.0.0.1';
+const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {
@@ -402,51 +402,76 @@ function adjustLiveSizes() {
     const newClass = openLives.length === 1 ? 'w-full h-full' : 'w-full md:w-1/2';
     element.className = element.className.replace(/w-full h-full|w-full md:w-1\/2/g, newClass);
     
-    // Calcular tamanho ideal mantendo proporção 16:9
-    const containerWidth = containerRect.width - 16; // Subtrair padding
-    const containerHeight = containerRect.height - 16; // Subtrair padding
-    
-    // Para 2 ou mais lives, limitar a altura para não ultrapassar metade da viewport
-    let maxAllowedHeight = containerHeight;
-    if (openLives.length >= 2) {
-      // Limitar a altura para aproximadamente metade da viewport
-      maxAllowedHeight = Math.min(containerHeight, window.innerHeight * 0.45);
-    }
-    
-    // Calcular qual dimensão é limitante
-    const maxWidthForHeight = maxAllowedHeight * (16/9);
-    const maxHeightForWidth = containerWidth * (9/16);
-    
-    let finalWidth, finalHeight;
-    
-    if (maxWidthForHeight <= containerWidth) {
-      // Altura é limitante
-      finalHeight = maxAllowedHeight;
-      finalWidth = maxWidthForHeight;
+    if (openLives.length === 1) {
+      // Ocupa todo o espaço disponível
+      element.style.height = '99vh';
+      element.style.width = '100%';
+      element.style.maxHeight = '';
+      element.style.maxWidth = '';
+      element.style.minHeight = '200px';
+      element.style.overflow = 'hidden';
+      element.style.boxSizing = 'border-box';
+      // Garantir que o iframe dentro da div também respeite os limites
+      const iframe = element.querySelector('iframe');
+      if (iframe) {
+        iframe.style.maxWidth = '100%';
+        iframe.style.width = '100%';
+        iframe.style.aspectRatio = '16/9';
+        iframe.style.height = 'auto';
+        iframe.style.flex = '1';
+        iframe.style.minHeight = '0';
+        iframe.style.objectFit = 'contain';
+        iframe.style.overflow = 'hidden';
+      }
     } else {
-      // Largura é limitante
-      finalWidth = containerWidth;
-      finalHeight = maxHeightForWidth;
-    }
-    
-    // Aplicar tamanhos calculados
-    element.style.maxHeight = `${finalHeight * 0.98}px`;
-    element.style.maxWidth = `${finalWidth}px`;
-    element.style.minHeight = '200px';
-    element.style.overflow = 'hidden';
-    element.style.boxSizing = 'border-box';
-    
-    // Garantir que o iframe dentro da div também respeite os limites
-    const iframe = element.querySelector('iframe');
-    if (iframe) {
-      iframe.style.maxWidth = '100%';
-      iframe.style.width = '100%';
-      iframe.style.aspectRatio = '16/9';
-      iframe.style.height = 'auto';
-      iframe.style.flex = '1';
-      iframe.style.minHeight = '0';
-      iframe.style.objectFit = 'contain';
-      iframe.style.overflow = 'hidden';
+      // Remover estilos fixos da live única
+      element.style.height = '';
+      element.style.width = '';
+      // Calcular tamanho ideal mantendo proporção 16:9
+      const containerWidth = containerRect.width - 16; // Subtrair padding
+      const containerHeight = containerRect.height - 16; // Subtrair padding
+      
+      // Para 2 ou mais lives, limitar a altura para não ultrapassar metade da viewport
+      let maxAllowedHeight = containerHeight;
+      if (openLives.length >= 2) {
+        // Limitar a altura para aproximadamente metade da viewport
+        maxAllowedHeight = Math.min(containerHeight, window.innerHeight * 0.45);
+      }
+      
+      // Calcular qual dimensão é limitante
+      const maxWidthForHeight = maxAllowedHeight * (16/9);
+      const maxHeightForWidth = containerWidth * (9/16);
+      
+      let finalWidth, finalHeight;
+      
+      if (maxWidthForHeight <= containerWidth) {
+        // Altura é limitante
+        finalHeight = maxAllowedHeight;
+        finalWidth = maxWidthForHeight;
+      } else {
+        // Largura é limitante
+        finalWidth = containerWidth;
+        finalHeight = maxHeightForWidth;
+      }
+      
+      // Aplicar tamanhos calculados
+      element.style.maxHeight = `${finalHeight * 0.98}px`;
+      element.style.maxWidth = `${finalWidth}px`;
+      element.style.minHeight = '200px';
+      element.style.overflow = 'hidden';
+      element.style.boxSizing = 'border-box';
+      // Garantir que o iframe dentro da div também respeite os limites
+      const iframe = element.querySelector('iframe');
+      if (iframe) {
+        iframe.style.maxWidth = '100%';
+        iframe.style.width = '100%';
+        iframe.style.aspectRatio = '16/9';
+        iframe.style.height = 'auto';
+        iframe.style.flex = '1';
+        iframe.style.minHeight = '0';
+        iframe.style.objectFit = 'contain';
+        iframe.style.overflow = 'hidden';
+      }
     }
   });
 }

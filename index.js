@@ -16,9 +16,9 @@ const twitchChannels = {
   wansinhoo:     { name: 'Wansinhoo',     color: 'bg-pink-500',   type: 'desertor' },
 };
 
-const URL = 'robsomchatmanager.netlify.app';
+//const URL = 'robsomchatmanager.netlify.app';
 //Mantenha este comentario
-//const URL = 'localhost&parent=127.0.0.1';
+const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {
@@ -229,17 +229,21 @@ function renderLives() {
     // Se só tem 1 live, aplica o estilo de altura
     if (openLives.length === 1) {
       liveDiv.style.height = '99vh';
+    } else {
+      // Para 2 ou mais lives, remover altura fixa para permitir redimensionamento
+      liveDiv.style.height = 'auto';
     }
 
     liveDiv.innerHTML = `
       <button onclick="closeLive('${channel}')" class="absolute top-1 right-1 text-gray-400 hover:text-red-500 text-xl font-bold z-10">&times;</button>
       <div class="mb-2 text-center text-sm text-gray-300">Canal: <span class="font-semibold">${twitchChannels[channel] ? twitchChannels[channel].name : channel}</span></div>
-      <div class='w-full aspect-w-16 aspect-h-9'>
+      <div class='w-full flex-1' style="display: flex; flex-direction: column; overflow: hidden;">
         <iframe
           src="https://player.twitch.tv/?channel=${channel}&parent=${URL}"
           allowfullscreen
           frameborder="0"
-          class="rounded-lg w-full h-full"
+          class="rounded-lg w-full flex-1"
+          style="aspect-ratio: 16/9; width: 100%; height: auto; min-height: 0; max-width: 100%; overflow: hidden;"
         ></iframe>
       </div>
     `;
@@ -307,12 +311,17 @@ function addLiveWindow(channel) {
   
   // Classes responsivas que respeitam vh e vw
   let liveClass = openLives.length === 1 ? 'w-full h-full' : 'w-full md:w-1/2';
-  liveDiv.className = `${liveClass} bg-gray-900 rounded-lg shadow-lg p-2 flex flex-col items-center relative animate-fade-in`;
+  liveDiv.className = `${liveClass} bg-gray-900 rounded-lg shadow-lg p-2 flex flex-col relative animate-fade-in`;
   liveDiv.id = `live-${channel}`;
   
-  // Adicionar estilos inline para garantir responsividade em altura
-  liveDiv.style.maxHeight = '85vh';
-  liveDiv.style.maxWidth = '95vw';
+  // Adicionar estilos inline para garantir responsividade
+  if (openLives.length === 1) {
+    liveDiv.style.maxHeight = '98%';
+  } else {
+    // Para 2 ou mais lives, limitar altura para não ultrapassar metade da viewport
+    liveDiv.style.maxHeight = `${window.innerHeight * 0.45}px`;
+  }
+  liveDiv.style.maxWidth = '100%';
   liveDiv.style.minHeight = '200px';
   liveDiv.style.overflow = 'hidden';
   liveDiv.style.boxSizing = 'border-box';
@@ -320,13 +329,13 @@ function addLiveWindow(channel) {
   liveDiv.innerHTML = `
     <button onclick="closeLive('${channel}')" class="absolute top-1 right-1 text-gray-400 hover:text-red-500 text-xl font-bold z-10">&times;</button>
     <div class="mb-2 text-center text-sm text-gray-300">Canal: <span class="font-semibold">${twitchChannels[channel] ? twitchChannels[channel].name : channel}</span></div>
-    <div class='w-full' style="aspect-ratio: 16/9; min-height: 150px;">
+    <div class='w-full flex-1' style="display: flex; flex-direction: column; overflow: hidden;">
       <iframe
         src="https://player.twitch.tv/?channel=${channel}&parent=${URL}"
         allowfullscreen
         frameborder="0"
-        class="rounded-lg w-full h-full"
-        style="min-height: 150px;"
+        class="rounded-lg w-full flex-1"
+        style="aspect-ratio: 16/9; width: 100%; height: auto; min-height: 0; max-width: 100%; overflow: hidden;"
       ></iframe>
     </div>
   `;
@@ -367,16 +376,59 @@ function addChatIframe(channel) {
 // Função para ajustar o tamanho das lives baseado na quantidade
 function adjustLiveSizes() {
   const liveElements = document.querySelectorAll('[id^="live-"]');
+  const container = document.getElementById('lives-container');
+  const containerRect = container.getBoundingClientRect();
+  
   liveElements.forEach(element => {
     const newClass = openLives.length === 1 ? 'w-full h-full' : 'w-full md:w-1/2';
     element.className = element.className.replace(/w-full h-full|w-full md:w-1\/2/g, newClass);
     
-    // Garantir que todos os elementos respeitem os limites de altura e largura
-    element.style.maxHeight = '85vh';
-    element.style.maxWidth = '95vw';
+    // Calcular tamanho ideal mantendo proporção 16:9
+    const containerWidth = containerRect.width - 16; // Subtrair padding
+    const containerHeight = containerRect.height - 16; // Subtrair padding
+    
+    // Para 2 ou mais lives, limitar a altura para não ultrapassar metade da viewport
+    let maxAllowedHeight = containerHeight;
+    if (openLives.length >= 2) {
+      // Limitar a altura para aproximadamente metade da viewport
+      maxAllowedHeight = Math.min(containerHeight, window.innerHeight * 0.45);
+    }
+    
+    // Calcular qual dimensão é limitante
+    const maxWidthForHeight = maxAllowedHeight * (16/9);
+    const maxHeightForWidth = containerWidth * (9/16);
+    
+    let finalWidth, finalHeight;
+    
+    if (maxWidthForHeight <= containerWidth) {
+      // Altura é limitante
+      finalHeight = maxAllowedHeight;
+      finalWidth = maxWidthForHeight;
+    } else {
+      // Largura é limitante
+      finalWidth = containerWidth;
+      finalHeight = maxHeightForWidth;
+    }
+    
+    // Aplicar tamanhos calculados
+    element.style.maxHeight = `${finalHeight * 0.98}px`;
+    element.style.maxWidth = `${finalWidth}px`;
     element.style.minHeight = '200px';
     element.style.overflow = 'hidden';
     element.style.boxSizing = 'border-box';
+    
+    // Garantir que o iframe dentro da div também respeite os limites
+    const iframe = element.querySelector('iframe');
+    if (iframe) {
+      iframe.style.maxWidth = '100%';
+      iframe.style.width = '100%';
+      iframe.style.aspectRatio = '16/9';
+      iframe.style.height = 'auto';
+      iframe.style.flex = '1';
+      iframe.style.minHeight = '0';
+      iframe.style.objectFit = 'contain';
+      iframe.style.overflow = 'hidden';
+    }
   });
 }
 
@@ -393,6 +445,13 @@ function removeLiveWindow(channel) {
     chatIframe.remove();
   }
 }
+
+// Adicionar listener para redimensionamento da janela
+window.addEventListener('resize', () => {
+  if (openLives.length > 0) {
+    adjustLiveSizes();
+  }
+});
 
 // Função para atualizar os botões de chat baseado nas lives abertas
 function updateChatButtons() {

@@ -48,11 +48,26 @@ body {
   margin-bottom: 0.7rem;
   transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
   position: relative;
-  max-height: 85vh;
-  max-width: 95vw;
+  max-height: 98%;
+  max-width: 100%;
   min-height: 200px;
   overflow: hidden;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Iframe da live com proporção 16:9 */
+#lives-container iframe {
+  aspect-ratio: 16/9;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  min-height: 0;
+  flex: 1;
+  object-fit: contain;
+  overflow: hidden;
+  border-radius: 0.5rem;
 }
 #channels-container button:hover {
   box-shadow: 0 6px 24px 0 #00000050, 0 2px 8px 0 #00000020;

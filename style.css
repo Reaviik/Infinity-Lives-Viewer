@@ -1826,3 +1826,66 @@ body.resizing * {
   margin-bottom: 0.7rem;
   letter-spacing: 0.01em;
 }
+
+/* ========== ESTILOS DO CONTADOR DE USUÁRIOS ONLINE ========== */
+#online-users-counter {
+  transition: all 0.3s ease;
+  text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+#online-users-counter:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+}
+
+/* Estilo para o container do contador com tooltip */
+[data-tooltip] {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+[data-tooltip]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+/* Animação de pulse para o indicador verde */
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse {
+  animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Efeito de glow para o contador quando atualiza */
+@keyframes counter-glow {
+  0% {
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(34, 197, 94, 0.8), 0 0 24px rgba(34, 197, 94, 0.4);
+  }
+  100% {
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+  }
+}
+
+#online-users-counter.pulse {
+  animation: counter-glow 0.5s ease-in-out;
+}
+
+/* Tooltip específico para o contador de usuários online */
+.custom-tooltip-follow-mouse {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.95) 0%, rgba(16, 185, 129, 0.95) 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
+  box-shadow: 0 4px 20px 0 rgba(34, 197, 94, 0.4), 0 2px 8px 0 rgba(34, 197, 94, 0.2) !important;
+}

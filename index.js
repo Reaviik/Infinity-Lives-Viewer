@@ -1478,10 +1478,10 @@ if (document.readyState === 'loading') {
 
 // Tooltip customizado que segue o mouse para o span do '?'
 document.addEventListener('DOMContentLoaded', function() {
-  // Delegação para todos os spans do ?
+  // Delegação para todos os elementos com data-tooltip
   document.body.addEventListener('mouseenter', function(e) {
     const target = e.target;
-    if (target.matches('span[data-tooltip]')) {
+    if (target.matches('[data-tooltip]')) {
       let tooltip = document.createElement('div');
       tooltip.className = 'custom-tooltip-follow-mouse';
       tooltip.innerText = target.getAttribute('data-tooltip');
@@ -1512,7 +1512,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }, true);
   document.body.addEventListener('mouseleave', function(e) {
     const target = e.target;
-    if (target.matches('span[data-tooltip]')) {
+    if (target.matches('[data-tooltip]')) {
       if (target._tooltipEl) {
         target._tooltipEl.remove();
         target._tooltipEl = null;
@@ -1608,6 +1608,10 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="card-total">
           <span class="valor"><span class="icon">⏱️</span> ${totalTempo}</span>
           <span class="label">Tempo total</span>
+        </div>
+        <div class="card-total">
+          <span class="valor"><span class="icon">🟢</span> ${window.getOnlineUsers ? window.getOnlineUsers() : 0}</span>
+          <span class="label">Usuários online</span>
         </div>
       </div>
       <div class="flex flex-row flex-wrap gap-8 max-w-5xl mx-auto mb-4 items-start justify-center" style="width:90%;">
@@ -1793,3 +1797,116 @@ document.addEventListener('DOMContentLoaded', function() {
     return JSON.stringify(obj, null, 2);
   };
 })(); 
+
+// ========== CONTADOR SIMPLES DE USUÁRIOS ONLINE ==========
+(function() {
+  let sessionId = null;
+  
+  // Gerar ID único para esta sessão
+  function generateSessionId() {
+    return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  }
+  
+  // Função para atualizar contador na interface
+  function updateOnlineCounter(count) {
+    const counterElement = document.getElementById('online-users-counter');
+    if (counterElement) {
+      const currentCount = parseInt(counterElement.textContent) || 0;
+      counterElement.textContent = count;
+      
+      // Adicionar animação apenas se o número mudou
+      if (count !== currentCount) {
+        counterElement.classList.add('pulse');
+        setTimeout(() => {
+          counterElement.classList.remove('pulse');
+        }, 500);
+      }
+    }
+  }
+  
+  // Função para contar usuários ativos
+  function countActiveUsers() {
+    const activeUsers = JSON.parse(localStorage.getItem('active_users') || '{}');
+    const now = Date.now();
+    let count = 0;
+    
+    // Contar usuários ativos (últimos 30 segundos)
+    Object.keys(activeUsers).forEach(id => {
+      if (now - activeUsers[id] <= 30000) {
+        count++;
+      }
+    });
+    
+    updateOnlineCounter(count);
+    return count;
+  }
+  
+  // Função para registrar atividade
+  function registerActivity() {
+    if (!sessionId) return;
+    
+    const activeUsers = JSON.parse(localStorage.getItem('active_users') || '{}');
+    activeUsers[sessionId] = Date.now();
+    
+    // Limpar usuários inativos
+    const now = Date.now();
+    Object.keys(activeUsers).forEach(id => {
+      if (now - activeUsers[id] > 30000) {
+        delete activeUsers[id];
+      }
+    });
+    
+    localStorage.setItem('active_users', JSON.stringify(activeUsers));
+    countActiveUsers();
+  }
+  
+  // Inicializar sistema
+  function initSimpleCounter() {
+    sessionId = generateSessionId();
+    
+    // Registrar primeira atividade
+    registerActivity();
+    
+    // Registrar atividade a cada 10 segundos
+    setInterval(registerActivity, 10000);
+    
+    // Contar usuários a cada 5 segundos
+    setInterval(countActiveUsers, 5000);
+    
+    // Limpar ao fechar a página
+    window.addEventListener('beforeunload', () => {
+      const activeUsers = JSON.parse(localStorage.getItem('active_users') || '{}');
+      delete activeUsers[sessionId];
+      localStorage.setItem('active_users', JSON.stringify(activeUsers));
+    });
+    
+    // Detectar quando a aba fica visível
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        registerActivity();
+      }
+    });
+  }
+  
+  // Inicializar quando o DOM estiver pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSimpleCounter);
+  } else {
+    initSimpleCounter();
+  }
+  
+  // Expor para uso global
+  window.getOnlineUsers = () => {
+    const activeUsers = JSON.parse(localStorage.getItem('active_users') || '{}');
+    const now = Date.now();
+    let count = 0;
+    
+    Object.keys(activeUsers).forEach(id => {
+      if (now - activeUsers[id] <= 30000) {
+        count++;
+      }
+    });
+    
+    return count;
+  };
+})();

@@ -25,18 +25,173 @@ body {
   box-shadow: none;
 }
 
-/* Cards de canal com efeito de elevação */
+/* Cards de canal com efeito de elevação e glassmorphism */
 #channels-container button {
-  background: linear-gradient(120deg, #232526 0%, #383a40 100%);
+  background: linear-gradient(135deg, rgba(35, 37, 38, 0.8) 0%, rgba(56, 58, 64, 0.9) 100%);
   border-radius: 1rem;
-  box-shadow: 0 2px 12px 0 #00000030, 0 1.5px 3px 0 #00000010;
-  border: 1.5px solid #23272a;
-  margin-bottom: 0.7rem;
-  transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+  box-shadow: 
+    0 4px 20px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.8rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   min-height: auto !important;
   max-height: none !important;
   height: auto !important;
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+/* Efeito hover mais sofisticado */
+#channels-container button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.4),
+    0 4px 16px 0 rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Efeito de brilho sutil no hover */
+#channels-container button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+  pointer-events: none;
+}
+
+#channels-container button:hover::before {
+  left: 100%;
+}
+
+/* Gradientes específicos para cada tipo de canal */
+#channels-container button[class*="from-amber-500"] {
+  background: linear-gradient(135deg, 
+    rgba(245, 158, 11, 0.15) 0%, 
+    rgba(251, 191, 36, 0.25) 50%, 
+    rgba(249, 115, 22, 0.15) 100%);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+#channels-container button[class*="from-purple-500"] {
+  background: linear-gradient(135deg, 
+    rgba(168, 85, 247, 0.15) 0%, 
+    rgba(139, 92, 246, 0.25) 50%, 
+    rgba(99, 102, 241, 0.15) 100%);
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+#channels-container button[class*="from-blue-500"] {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.15) 0%, 
+    rgba(6, 182, 212, 0.25) 50%, 
+    rgba(20, 184, 166, 0.15) 100%);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+#channels-container button[class*="from-emerald-500"] {
+  background: linear-gradient(135deg, 
+    rgba(16, 185, 129, 0.15) 0%, 
+    rgba(34, 197, 94, 0.25) 50%, 
+    rgba(132, 204, 22, 0.15) 100%);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+#channels-container button[class*="from-gray-400"] {
+  background: linear-gradient(135deg, 
+    rgba(156, 163, 175, 0.1) 0%, 
+    rgba(107, 114, 128, 0.2) 50%, 
+    rgba(75, 85, 99, 0.1) 100%);
+  border-color: rgba(156, 163, 175, 0.2);
+}
+
+/* Sombras coloridas específicas para cada tipo */
+#channels-container button[class*="shadow-amber-500"] {
+  box-shadow: 
+    0 4px 20px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(245, 158, 11, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+#channels-container button[class*="shadow-purple-500"] {
+  box-shadow: 
+    0 4px 20px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(168, 85, 247, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+#channels-container button[class*="shadow-blue-500"] {
+  box-shadow: 
+    0 4px 20px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+#channels-container button[class*="shadow-emerald-500"] {
+  box-shadow: 
+    0 4px 20px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(16, 185, 129, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+#channels-container button[class*="shadow-gray-500"] {
+  box-shadow: 
+    0 4px 20px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(156, 163, 175, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Hover com sombras coloridas */
+#channels-container button[class*="shadow-amber-500"]:hover {
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.4),
+    0 4px 16px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(245, 158, 11, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+#channels-container button[class*="shadow-purple-500"]:hover {
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.4),
+    0 4px 16px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(168, 85, 247, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+#channels-container button[class*="shadow-blue-500"]:hover {
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.4),
+    0 4px 16px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(59, 130, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+#channels-container button[class*="shadow-emerald-500"]:hover {
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.4),
+    0 4px 16px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(16, 185, 129, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+#channels-container button[class*="shadow-gray-500"]:hover {
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.4),
+    0 4px 16px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(156, 163, 175, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 /* Cards de live com efeito de elevação e limites de viewport */
@@ -178,7 +333,17 @@ body {
   margin-right: 0;
 }
 
-/* Tooltip customizado */
+/* Tooltip customizado para spans com data-tooltip */
+#channels-container button span[data-tooltip] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* REMOVIDO: Tooltip customizado para spans com data-tooltip via ::after, pois agora é feito via JS */
+
+/* Tooltip customizado para buttons com title (mantido para compatibilidade) */
 button[title]:hover::after {
   content: attr(title);
   position: absolute;
@@ -915,4 +1080,410 @@ body.resizing * {
   #chat-column {
     max-width: 400px;
   }
+}
+
+/* Melhorias na tipografia e espaçamento */
+#channels-container button {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#channels-container button div {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Efeito de profundidade para avatares */
+[id^="avatar-"] {
+  position: relative;
+  z-index: 2;
+}
+
+[id^="avatar-"] img {
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 0 0 2px rgba(35, 39, 42, 0.8),
+    0 4px 12px 2px rgba(0, 0, 0, 0.3),
+    0 2px 4px 1px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+[id^="avatar-"] img:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 0 3px rgba(255, 255, 255, 1),
+    0 8px 24px 4px rgba(0, 0, 0, 0.4),
+    0 4px 8px 2px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* Status indicators mais sofisticados */
+[id^="status-"] {
+  position: relative;
+  z-index: 3;
+  box-shadow: 
+    0 0 0 2px rgba(35, 39, 42, 0.8),
+    0 2px 4px 1px rgba(0, 0, 0, 0.3);
+}
+
+/* Efeito de glow para status online */
+.bg-red-500.animate-pulse {
+  background: linear-gradient(135deg, #ef4444 0%, #f97316 100%) !important;
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  box-shadow: 
+    0 0 0 2px rgba(35, 39, 42, 0.8),
+    0 0 12px 4px rgba(239, 68, 68, 0.4),
+    0 0 20px 8px rgba(239, 68, 68, 0.2);
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 0 2px rgba(35, 39, 42, 0.8),
+      0 0 12px 4px rgba(239, 68, 68, 0.4),
+      0 0 20px 8px rgba(239, 68, 68, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 0 2px rgba(35, 39, 42, 0.8),
+      0 0 20px 8px rgba(239, 68, 68, 0.6),
+      0 0 32px 12px rgba(239, 68, 68, 0.3);
+  }
+}
+
+/* Melhorias nos ícones de tipo de canal */
+#channels-container button span[class*="inline-block"] {
+  box-shadow: 
+    0 2px 4px 0 rgba(0, 0, 0, 0.2),
+    0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+#channels-container button span[class*="inline-block"]:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 4px 8px 0 rgba(0, 0, 0, 0.3),
+    0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Efeito de loading sutil */
+#channels-container button:active {
+  transform: translateY(-1px) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+/* Melhor contraste para texto */
+#channels-container button .text-gray-400 {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 500;
+}
+
+/* Efeito de foco para acessibilidade */
+#channels-container button:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Animação de entrada mais suave */
+#channels-container button {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efeito de scroll mais suave */
+#channels-container {
+  scroll-behavior: smooth;
+}
+
+/* Melhorias no container principal */
+#channels-column {
+  background: linear-gradient(135deg, 
+    rgba(43, 45, 49, 0.95) 0%, 
+    rgba(35, 37, 38, 0.98) 100%);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Efeito de partículas sutis no background */
+#channels-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Melhor organização visual dos elementos */
+#channels-container button > div:first-child {
+  position: relative;
+  z-index: 2;
+}
+
+#channels-container button > div:nth-child(2) {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Efeito de profundidade para o container */
+#channels-container {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(35, 37, 38, 0.8) 0%, 
+    rgba(43, 45, 49, 0.9) 100%);
+  border-radius: 1rem;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Melhorias no scrollbar para combinar com o design */
+#channels-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#channels-container::-webkit-scrollbar-track {
+  background: rgba(35, 37, 38, 0.3);
+  border-radius: 4px;
+}
+
+#channels-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, 
+    rgba(156, 163, 175, 0.4) 0%, 
+    rgba(107, 114, 128, 0.6) 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#channels-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, 
+    rgba(156, 163, 175, 0.6) 0%, 
+    rgba(107, 114, 128, 0.8) 100%);
+}
+
+/* Efeito de loading para avatares */
+[id^="avatar-"]:not(:has(img)) {
+  background: linear-gradient(90deg, 
+    rgba(156, 163, 175, 0.3) 25%, 
+    rgba(156, 163, 175, 0.6) 50%, 
+    rgba(156, 163, 175, 0.3) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Melhorias na responsividade */
+@media (max-width: 768px) {
+  #channels-container button {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  [id^="avatar-"] img {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  #channels-container button span[class*="inline-block"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Efeito de seleção ativa */
+#channels-container button.active {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.2) 0%, 
+    rgba(37, 99, 235, 0.3) 100%);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 
+    0 4px 20px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Melhorias nos tooltips - removida duplicação */
+
+/* Efeito de destaque para canais online */
+#channels-container button:has(.bg-red-500) {
+  position: relative;
+}
+
+#channels-container button:has(.bg-red-500)::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(239, 68, 68, 0.3), 
+    rgba(249, 115, 22, 0.3), 
+    rgba(239, 68, 68, 0.3));
+  border-radius: 1.125rem;
+  z-index: -1;
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+@keyframes border-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Indicador de status (bolinha) sempre no canto inferior direito do card do canal */
+#channels-container button [id^="status-"] {
+  position: absolute !important;
+  bottom: 0px !important;
+  right: 0px !important;
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50%;
+  border: 2.5px solid #23272a;
+  box-shadow: 0 0 6px 1px rgba(0,0,0,0.18);
+  z-index: 10;
+  background-clip: padding-box;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+/* Ajuste para status online (vermelho) e offline (cinza) */
+#channels-container button [id^="status-"] {
+  background: #23272a;
+}
+#channels-container button [id^="status-"] .bg-red-500 {
+  background: linear-gradient(135deg, #ef4444 0%, #f97316 100%) !important;
+}
+#channels-container button [id^="status-"] .bg-gray-500 {
+  background: #23272a !important;
+}
+
+/* Estilo específico para o "?" dos canais - agora com cores correspondentes ao tipo */
+#channels-container button span[data-tooltip] {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  transition: all 0.2s ease !important;
+  backdrop-filter: blur(4px) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Estilos específicos por tipo de canal */
+#channels-container button span[data-tooltip][data-type="premium"] {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.65) 0%, rgba(251, 191, 36, 0.55) 100%) !important;
+  border: 2px solid rgba(245, 158, 11, 0.6) !important;
+  color: #92400e !important;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.18), 0 0 0 1px rgba(245, 158, 11, 0.12) !important;
+}
+#channels-container button span[data-tooltip][data-type="premium"]:hover {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.75) 0%, rgba(245, 158, 11, 0.65) 100%) !important;
+  border-color: rgba(245, 158, 11, 0.9) !important;
+  color: #78350f !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.22), 0 0 0 2px rgba(245, 158, 11, 0.18) !important;
+}
+
+#channels-container button span[data-tooltip][data-type="plus"] {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.65) 0%, rgba(139, 92, 246, 0.55) 100%) !important;
+  border: 2px solid rgba(168, 85, 247, 0.6) !important;
+  color: #581c87 !important;
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.18), 0 0 0 1px rgba(168, 85, 247, 0.12) !important;
+}
+#channels-container button span[data-tooltip][data-type="plus"]:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.75) 0%, rgba(168, 85, 247, 0.65) 100%) !important;
+  border-color: rgba(168, 85, 247, 0.9) !important;
+  color: #4c1d95 !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.22), 0 0 0 2px rgba(168, 85, 247, 0.18) !important;
+}
+
+#channels-container button span[data-tooltip][data-type="normal"] {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.65) 0%, rgba(6, 182, 212, 0.55) 100%) !important;
+  border: 2px solid rgba(59, 130, 246, 0.6) !important;
+  color: #1e40af !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.18), 0 0 0 1px rgba(59, 130, 246, 0.12) !important;
+}
+#channels-container button span[data-tooltip][data-type="normal"]:hover {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.75) 0%, rgba(59, 130, 246, 0.65) 100%) !important;
+  border-color: rgba(59, 130, 246, 0.9) !important;
+  color: #1e3a8a !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.22), 0 0 0 2px rgba(59, 130, 246, 0.18) !important;
+}
+
+#channels-container button span[data-tooltip][data-type="iniciante"] {
+  background: linear-gradient(135deg, rgba(120, 255, 210, 0.55) 0%, rgba(107, 114, 128, 0.35) 100%) !important;
+  border: 2px solid rgba(156, 163, 175, 0.4) !important;
+  color: #374151 !important;
+  box-shadow: 0 2px 8px rgba(156, 163, 175, 0.12), 0 0 0 1px rgba(156, 163, 175, 0.08) !important;
+}
+#channels-container button span[data-tooltip][data-type="iniciante"]:hover {
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.65) 0%, rgba(156, 163, 175, 0.45) 100%) !important;
+  border-color: rgba(156, 163, 175, 0.7) !important;
+  color: #1f2937 !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(156, 163, 175, 0.16), 0 0 0 2px rgba(156, 163, 175, 0.12) !important;
+}
+
+#channels-container button span[data-tooltip][data-type="desertor"] {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(243, 244, 246, 0.35) 100%) !important;
+  border: 2px solid rgba(156, 163, 175, 0.3) !important;
+  color: #374151 !important;
+  box-shadow: 0 2px 8px rgba(156, 163, 175, 0.08), 0 0 0 1px rgba(156, 163, 175, 0.05) !important;
+}
+#channels-container button span[data-tooltip][data-type="desertor"]:hover {
+  background: linear-gradient(135deg, rgba(243, 244, 246, 0.55) 0%, rgba(255, 255, 255, 0.45) 100%) !important;
+  border-color: rgba(156, 163, 175, 0.5) !important;
+  color: #1f2937 !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(156, 163, 175, 0.12), 0 0 0 2px rgba(156, 163, 175, 0.08) !important;
+}
+
+/* Garantir que o botão do canal tenha position relative */
+#channels-container button {
+  position: relative !important;
+  overflow: visible !important;
 }

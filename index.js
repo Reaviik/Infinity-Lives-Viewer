@@ -25,32 +25,34 @@ const twitchChannels = {
   giantobeso:       { name: 'Giantobeso',      color: 'bg-pink-500',   type: 'desertor' },
   princessstellar:  { name: 'Princessstellar', color: 'bg-pink-500',   type: 'desertor' },
   pedrophaj:        { name: 'Pedrophaj',       color: 'bg-pink-500',   type: 'desertor' },
-  nicknicollyx:     { name: 'NickNicollyx',    color: 'bg-pink-500',   type: 'desertor' },
+  dark:             { name: 'Dark',            color: 'bg-pink-500',   type: 'desertor' },
   satooro:          { name: 'Satooro',         color: 'bg-pink-500',   type: 'desertor' },
   vulkanotg:        { name: 'VulkanoTG',       color: 'bg-pink-500',   type: 'desertor' },
 };
 
-//const URL = 'robsomchatmanager.netlify.app';
+const URL = 'robsomchatmanager.netlify.app';
 //Mantenha este comentario
-const URL = 'localhost&parent=127.0.0.1';
+//const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {
-  const baseClasses = 'flex items-center space-x-2 mt-1 w-full hover:bg-gray-700 rounded px-2 py-1 transition relative min-h-[56px]';
+  const baseClasses = 'flex items-center space-x-2 mt-1 w-full hover:bg-gray-700 rounded-lg px-3 py-2 transition-all duration-300 relative min-h-[56px] backdrop-blur-sm';
   let typeClasses = '';
+  
   if (channelConfig.type === 'premium') {
-    typeClasses = 'bg-gradient-to-r from-yellow-900 via-yellow-800 to-yellow-700 shadow-lg';
+    typeClasses = 'bg-gradient-to-br from-amber-500/20 via-yellow-600/30 to-orange-500/20 border border-amber-400/30 shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20';
   } else if (channelConfig.type === 'plus') {
-    typeClasses = 'bg-gradient-to-r from-purple-900 via-purple-800 to-purple-700 shadow-lg';
+    typeClasses = 'bg-gradient-to-br from-purple-500/20 via-violet-600/30 to-indigo-500/20 border border-purple-400/30 shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20';
   } else if (channelConfig.type === 'normal') {
-    typeClasses = 'bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 shadow-lg';
+    typeClasses = 'bg-gradient-to-br from-blue-500/20 via-cyan-600/30 to-teal-500/20 border border-blue-400/30 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20';
   } else if (channelConfig.type === 'iniciante') {
-    typeClasses = 'bg-gray-400 bg-opacity-40 border border-gray-500 shadow';
+    typeClasses = 'bg-gradient-to-br from-emerald-500/20 via-green-600/30 to-lime-500/20 border border-emerald-400/30 shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20';
   } else if (channelConfig.type === 'desertor') {
-    typeClasses = 'bg-gray-200 bg-opacity-10 backdrop-blur-md shadow';
+    typeClasses = 'bg-gradient-to-br from-gray-400/10 via-gray-500/20 to-gray-600/10 border border-gray-400/20 shadow-lg shadow-gray-500/5 hover:shadow-gray-500/10';
   } else {
-    typeClasses = 'shadow-lg';
+    typeClasses = 'bg-gradient-to-br from-gray-500/20 via-gray-600/30 to-gray-700/20 border border-gray-400/30 shadow-lg shadow-gray-500/10 hover:shadow-gray-500/20';
   }
+  
   return `${baseClasses} ${typeClasses}`;
 }
 
@@ -316,6 +318,9 @@ function closeLive(channel) {
     // Mostrar o chat da primeira live restante
     showSidebarChat(openLives[0]);
   }
+  
+  // Atualizar estado ativo dos botões
+  updateActiveChannelButtons();
 }
 
 // Função para adicionar apenas uma janela específica
@@ -872,7 +877,6 @@ function generateChannelButtons() {
     button.onclick = () => toggleLive(channel);
     button.id = `btn-${channel}`;
     button.className = getChannelButtonClasses(channelConfig);
-    
     button.innerHTML = `
       <div class="relative">
         <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
@@ -880,12 +884,12 @@ function generateChannelButtons() {
       <div class="flex-1 relative overflow-hidden text-left flex items-center">
         <div>${channelConfig.name}</div>
       </div>
-              <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-gray-500 rounded-full border-2 border-gray-850"></div>
-        ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-yellow-300 text-yellow-900 rounded-full text-xs font-bold flex items-center justify-center border border-yellow-500" title="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity">?</span></span>` : ''}
-        ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-purple-300 text-purple-900 rounded-full text-xs font-bold flex items-center justify-center border border-purple-500" title="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity">?</span></span>` : ''}
-        ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-blue-300 text-blue-900 rounded-full text-xs font-bold flex items-center justify-center border border-blue-500" title="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity">?</span></span>` : ''}
-        ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-gray-300 text-gray-800 rounded-full text-xs font-bold flex items-center justify-center border border-gray-400" title="Canal iniciante">?</span></span>` : ''}
-        ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-white text-gray-800 rounded-full text-xs font-bold flex items-center justify-center border border-gray-300" title="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades">?</span></span>` : ''}
+      <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-gray-500 rounded-full border-2 border-gray-850"></div>
+      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
+      ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
+      ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
+      ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
+      ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
     `;
     
     container.appendChild(button);
@@ -934,7 +938,11 @@ async function updateAllChannelsList() {
         <div>${channelConfig.name}</div>
       </div>
       <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-full border-2 border-gray-850"></div>
-      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-yellow-300 text-yellow-900 rounded-full text-xs font-bold flex items-center justify-center border border-yellow-500" title="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity">?</span></span>` : ''}
+      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-yellow-500 bg-yellow-300 rounded-full text-yellow-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity">?</span>` : ''}
+      ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-purple-500 bg-purple-300 rounded-full text-purple-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity">?</span>` : ''}
+      ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-blue-500 bg-blue-300 rounded-full text-blue-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity">?</span>` : ''}
+      ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-gray-400 bg-gray-300 rounded-full text-gray-800 text-xs font-bold z-10" data-tooltip="Canal iniciante">?</span>` : ''}
+      ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-gray-300 bg-white rounded-full text-gray-800 text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades">?</span>` : ''}
     `;
     container.appendChild(button);
     // Atualiza avatar
@@ -1042,15 +1050,15 @@ async function updateAllChannelsListSmooth() {
           <div>${channelConfig.name}</div>
           <div id="game-${channel}" class="text-xs text-gray-400 w-full flex flex-row items-center justify-between">
             <span id="game-name-${channel}" style="max-width:80%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:inline-block;vertical-align:middle;"></span>
-            <span id="viewers-${channel}" style="margin-left:auto;margin-right:10px;text-align:right;"></span>
+            <span id="viewers-${channel}" style="margin-left:auto;margin-right:15px;text-align:right;"></span>
           </div>
         </div>
         <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-full border-2 border-gray-850"></div>
-        ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-yellow-300 text-yellow-900 rounded-full text-xs font-bold flex items-center justify-center border border-yellow-500" title="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity">?</span></span>` : ''}
-        ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-purple-300 text-purple-900 rounded-full text-xs font-bold flex items-center justify-center border border-purple-500" title="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity">?</span></span>` : ''}
-        ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-blue-300 text-blue-900 rounded-full text-xs font-bold flex items-center justify-center border border-blue-500" title="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity">?</span></span>` : ''}
-        ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-gray-300 text-gray-800 rounded-full text-xs font-bold flex items-center justify-center border border-gray-400" title="Canal iniciante">?</span></span>` : ''}
-        ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group"><span class="inline-block w-5 h-5 bg-white text-gray-800 rounded-full text-xs font-bold flex items-center justify-center border border-gray-300" title="Este canal não faz mais parte dos streamers do Infinity Nexus">?</span></span>` : ''}
+        ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-yellow-500 bg-yellow-300 rounded-full text-yellow-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity">?</span>` : ''}
+        ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-purple-500 bg-purple-300 rounded-full text-purple-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity">?</span>` : ''}
+        ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-blue-500 bg-blue-300 rounded-full text-blue-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity">?</span>` : ''}
+        ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-gray-400 bg-gray-300 rounded-full text-gray-800 text-xs font-bold z-10" data-tooltip="Canal iniciante">?</span>` : ''}
+        ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-gray-300 bg-white rounded-full text-gray-800 text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades">?</span>` : ''}
       `;
       container.appendChild(button);
     }
@@ -1085,18 +1093,7 @@ async function updateAllChannelsListSmooth() {
     updateAvatarBorder(channel);
     // Atualiza classe mantendo a estrutura base
     button.className = getChannelButtonClasses(channelConfig);
-    // Atualiza ou adiciona o ícone ?
-    if (channelConfig.type === 'premium') {
-      if (!button.querySelector('.premium-info')) {
-        const info = document.createElement('span');
-        info.className = 'absolute top-0 right-0 cursor-pointer premium-info';
-        info.innerHTML = `<span class="inline-block w-5 h-5 bg-yellow-300 text-yellow-900 rounded-full text-xs font-bold flex items-center justify-center border border-yellow-500" title="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity">?</span>`;
-        button.appendChild(info);
-      }
-    } else {
-      const info = button.querySelector('.premium-info');
-      if (info) info.remove();
-    }
+    // Remover lógica de duplicação do informativo premium
     // Atualiza nome premium (garante classes)
     const nameDiv = button.querySelector('div:not([id^="avatar-"]):not([id^="status-"])');
     if (nameDiv) {
@@ -1174,6 +1171,8 @@ function simulateChannelGoingOnline(channel = 'moldador') {
   // Dispara o aviso
   showOnlineNowCard(channel);
 }
+
+
 
 // ===== FUNCIONALIDADE DE REDIMENSIONAMENTO =====
 
@@ -1337,3 +1336,52 @@ if (document.readyState === 'loading') {
   initializeResizeHandles();
   loadColumnWidths();
 } 
+
+// Tooltip customizado que segue o mouse para o span do '?'
+document.addEventListener('DOMContentLoaded', function() {
+  // Delegação para todos os spans do ?
+  document.body.addEventListener('mouseenter', function(e) {
+    const target = e.target;
+    if (target.matches('span[data-tooltip]')) {
+      let tooltip = document.createElement('div');
+      tooltip.className = 'custom-tooltip-follow-mouse';
+      tooltip.innerText = target.getAttribute('data-tooltip');
+      tooltip.style.position = 'fixed';
+      tooltip.style.pointerEvents = 'none';
+      tooltip.style.zIndex = 99999;
+      tooltip.style.background = 'linear-gradient(135deg, rgba(35,37,38,0.95) 0%, rgba(43,45,49,0.95) 100%)';
+      tooltip.style.color = '#fbbf24';
+      tooltip.style.padding = '6px 14px';
+      tooltip.style.borderRadius = '8px';
+      tooltip.style.fontSize = '0.95rem';
+      tooltip.style.fontWeight = '500';
+      tooltip.style.letterSpacing = '0.025em';
+      tooltip.style.boxShadow = '0 4px 20px 0 rgba(0,0,0,0.4), 0 2px 8px 0 rgba(0,0,0,0.2)';
+      tooltip.style.border = '1px solid rgba(255,255,255,0.1)';
+      tooltip.style.whiteSpace = 'nowrap';
+      document.body.appendChild(tooltip);
+      // Atualiza posição ao mover o mouse
+      function moveTooltip(ev) {
+        tooltip.style.left = (ev.clientX + 16) + 'px';
+        tooltip.style.top = (ev.clientY + 16) + 'px';
+      }
+      moveTooltip(e); // Posição inicial
+      target._moveTooltipHandler = moveTooltip;
+      document.addEventListener('mousemove', moveTooltip);
+      target._tooltipEl = tooltip;
+    }
+  }, true);
+  document.body.addEventListener('mouseleave', function(e) {
+    const target = e.target;
+    if (target.matches('span[data-tooltip]')) {
+      if (target._tooltipEl) {
+        target._tooltipEl.remove();
+        target._tooltipEl = null;
+      }
+      if (target._moveTooltipHandler) {
+        document.removeEventListener('mousemove', target._moveTooltipHandler);
+        target._moveTooltipHandler = null;
+      }
+    }
+  }, true);
+}); 

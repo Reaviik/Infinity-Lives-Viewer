@@ -14,6 +14,7 @@ const twitchChannels = {
   arondesu0:        { name: 'AronDesu0',       color: 'bg-blue-500',   type: 'normal' },
   tsdesert:         { name: 'TsDesert',        color: 'bg-pink-500',   type: 'iniciante' },
   ofirofiro:        { name: 'OfirOfiro',       color: 'bg-pink-500',   type: 'iniciante' },
+  srpikenno:        { name: 'Pikenno',         color: 'bg-pink-500',   type: 'iniciante' },
   lorran_aa:        { name: 'Lorran_AA',       color: 'bg-pink-500',   type: 'desertor' },
   pyixurr:          { name: 'Pyixurr',         color: 'bg-pink-500',   type: 'desertor' },
   guistoper:        { name: 'Guistoper',       color: 'bg-pink-500',   type: 'desertor' },
@@ -30,9 +31,9 @@ const twitchChannels = {
   vulkanotg:        { name: 'VulkanoTG',       color: 'bg-pink-500',   type: 'desertor' },
 };
 
-const URL = 'robsomchatmanager.netlify.app';
+//const URL = 'robsomchatmanager.netlify.app';
 //Mantenha este comentario
-//const URL = 'localhost&parent=127.0.0.1';
+const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {
@@ -1042,6 +1043,56 @@ async function fetchAllTwitchChannelData(channels) {
   }
 }
 
+// Variável para armazenar o estado anterior dos canais
+let previousChannelState = {
+  onlineChannels: [],
+  offlineChannels: [],
+  gameData: {},
+  viewerData: {}
+};
+
+// Função para verificar se houve mudanças nos canais
+function hasChannelChanges(newOnlineChannels, newOfflineChannels, allData) {
+  // Verificar mudanças na lista de online/offline
+  const onlineChanged = JSON.stringify(newOnlineChannels.sort()) !== JSON.stringify(previousChannelState.onlineChannels.sort());
+  const offlineChanged = JSON.stringify(newOfflineChannels.sort()) !== JSON.stringify(previousChannelState.offlineChannels.sort());
+  
+  if (onlineChanged || offlineChanged) {
+    return true;
+  }
+  
+  // Verificar mudanças nos dados dos jogos e viewers
+  for (const channel of Object.keys(twitchChannels)) {
+    const userData = allData[channel];
+    const currentGame = userData?.stream?.game?.name || 'Offline';
+    const currentViewers = userData?.stream?.viewersCount || 0;
+    const previousGame = previousChannelState.gameData[channel] || 'Offline';
+    const previousViewers = previousChannelState.viewerData[channel] || 0;
+    
+    if (currentGame !== previousGame || currentViewers !== previousViewers) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+// Função para atualizar o estado anterior
+function updatePreviousChannelState(onlineChannels, offlineChannels, allData) {
+  previousChannelState = {
+    onlineChannels: [...onlineChannels],
+    offlineChannels: [...offlineChannels],
+    gameData: {},
+    viewerData: {}
+  };
+  
+  for (const channel of Object.keys(twitchChannels)) {
+    const userData = allData[channel];
+    previousChannelState.gameData[channel] = userData?.stream?.game?.name || 'Offline';
+    previousChannelState.viewerData[channel] = userData?.stream?.viewersCount || 0;
+  }
+}
+
 // Substituir updateAllChannelsListSmooth para usar o fetch único
 async function updateAllChannelsListSmooth() {
   const container = document.getElementById('channels-container');
@@ -1067,6 +1118,12 @@ async function updateAllChannelsListSmooth() {
     } else {
       offlineChannels.push(channel);
     }
+  }
+
+  // Verificar se houve mudanças antes de atualizar
+  if (!hasChannelChanges(onlineChannels, offlineChannels, allData)) {
+    console.log('Nenhuma mudança detectada, pulando atualização da lista de canais');
+    return;
   }
 
   // Ordenar favoritos no topo e depois por type
@@ -1202,6 +1259,9 @@ async function updateAllChannelsListSmooth() {
     top: 0,
     behavior: 'smooth'
   });
+  
+  // Atualizar o estado anterior para a próxima verificação
+  updatePreviousChannelState(onlineChannels, offlineChannels, allData);
 }
 
 // Substituir chamada antiga pela nova suave

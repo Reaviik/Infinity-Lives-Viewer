@@ -1414,76 +1414,6 @@ body.resizing * {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Estilos específicos por tipo de canal */
-#channels-container button span[data-tooltip][data-type="premium"] {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.65) 0%, rgba(251, 191, 36, 0.55) 100%) !important;
-  border: 2px solid rgba(245, 158, 11, 0.6) !important;
-  color: #92400e !important;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.18), 0 0 0 1px rgba(245, 158, 11, 0.12) !important;
-}
-#channels-container button span[data-tooltip][data-type="premium"]:hover {
-  background: linear-gradient(135deg, rgba(251, 191, 36, 0.75) 0%, rgba(245, 158, 11, 0.65) 100%) !important;
-  border-color: rgba(245, 158, 11, 0.9) !important;
-  color: #78350f !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.22), 0 0 0 2px rgba(245, 158, 11, 0.18) !important;
-}
-
-#channels-container button span[data-tooltip][data-type="plus"] {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.65) 0%, rgba(139, 92, 246, 0.55) 100%) !important;
-  border: 2px solid rgba(168, 85, 247, 0.6) !important;
-  color: #581c87 !important;
-  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.18), 0 0 0 1px rgba(168, 85, 247, 0.12) !important;
-}
-#channels-container button span[data-tooltip][data-type="plus"]:hover {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.75) 0%, rgba(168, 85, 247, 0.65) 100%) !important;
-  border-color: rgba(168, 85, 247, 0.9) !important;
-  color: #4c1d95 !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.22), 0 0 0 2px rgba(168, 85, 247, 0.18) !important;
-}
-
-#channels-container button span[data-tooltip][data-type="normal"] {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.65) 0%, rgba(6, 182, 212, 0.55) 100%) !important;
-  border: 2px solid rgba(59, 130, 246, 0.6) !important;
-  color: #1e40af !important;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.18), 0 0 0 1px rgba(59, 130, 246, 0.12) !important;
-}
-#channels-container button span[data-tooltip][data-type="normal"]:hover {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.75) 0%, rgba(59, 130, 246, 0.65) 100%) !important;
-  border-color: rgba(59, 130, 246, 0.9) !important;
-  color: #1e3a8a !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.22), 0 0 0 2px rgba(59, 130, 246, 0.18) !important;
-}
-
-#channels-container button span[data-tooltip][data-type="iniciante"] {
-  background: linear-gradient(135deg, rgba(120, 255, 210, 0.55) 0%, rgba(107, 114, 128, 0.35) 100%) !important;
-  border: 2px solid rgba(156, 163, 175, 0.4) !important;
-  color: #374151 !important;
-  box-shadow: 0 2px 8px rgba(156, 163, 175, 0.12), 0 0 0 1px rgba(156, 163, 175, 0.08) !important;
-}
-#channels-container button span[data-tooltip][data-type="iniciante"]:hover {
-  background: linear-gradient(135deg, rgba(107, 114, 128, 0.65) 0%, rgba(156, 163, 175, 0.45) 100%) !important;
-  border-color: rgba(156, 163, 175, 0.7) !important;
-  color: #1f2937 !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(156, 163, 175, 0.16), 0 0 0 2px rgba(156, 163, 175, 0.12) !important;
-}
-
-#channels-container button span[data-tooltip][data-type="desertor"] {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(243, 244, 246, 0.35) 100%) !important;
-  border: 2px solid rgba(156, 163, 175, 0.3) !important;
-  color: #374151 !important;
-  box-shadow: 0 2px 8px rgba(156, 163, 175, 0.08), 0 0 0 1px rgba(156, 163, 175, 0.05) !important;
-}
-#channels-container button span[data-tooltip][data-type="desertor"]:hover {
-  background: linear-gradient(135deg, rgba(243, 244, 246, 0.55) 0%, rgba(255, 255, 255, 0.45) 100%) !important;
-  border-color: rgba(156, 163, 175, 0.5) !important;
-  color: #1f2937 !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(156, 163, 175, 0.12), 0 0 0 2px rgba(156, 163, 175, 0.08) !important;
-}
 
 /* Garantir que o botão do canal tenha position relative */
 #channels-container button {
@@ -1888,4 +1818,123 @@ body.resizing * {
   color: #ffffff !important;
   border: 1px solid rgba(34, 197, 94, 0.3) !important;
   box-shadow: 0 4px 20px 0 rgba(34, 197, 94, 0.4), 0 2px 8px 0 rgba(34, 197, 94, 0.2) !important;
+}
+
+/* ========== ESTILOS DO ÍCONE DA TWITCH ========== */
+[onclick*="twitch.tv"]:hover {
+  animation: twitch-glow 2s ease-in-out infinite;
+}
+
+/* ========== POSICIONAMENTO CORRETO DOS ÍCONES ========== */
+/* Garantir que o ícone da Twitch fique no canto direito */
+[onclick*="twitch.tv"] {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  z-index: 10 !important;
+}
+
+/* Garantir que o ícone de informação fique à esquerda do ícone da Twitch */
+[data-tooltip][data-type] {
+  position: absolute !important;
+  top: 0 !important;
+  right: 24px !important; /* 6 * 4px = 24px (right-6) */
+  z-index: 10 !important;
+}
+
+/* Para canais sem tipo (sem ícone de informação), o ícone da Twitch fica no canto */
+#channels-container button:not([data-type]) [onclick*="twitch.tv"] {
+  right: 0 !important;
+}
+
+/* Regras específicas para cada tipo de canal */
+#channels-container button [data-type] {
+  right: 24px !important;
+}
+/* ========== ESTILO PADRÃO PARA O ? DOS CANAIS ========== */
+#channels-container button [data-type] {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 85% !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  backdrop-filter: blur(8px) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  outline: none !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+#channels-container button [data-type]:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  outline: none !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ========== ESTILO PADRÃO PARA O ÍCONE DA TWITCH ========== */
+#channels-container button span[onclick*="twitch.tv"] {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 72% !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  backdrop-filter: blur(8px) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  outline: none !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+#channels-container button span[onclick*="twitch.tv"]:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  outline: none !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }

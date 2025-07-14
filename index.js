@@ -930,14 +930,15 @@ function generateChannelButtons() {
         <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
       </div>
       <div class="flex-1 relative overflow-hidden text-left flex items-center">
-        <div>${channelConfig.name}</div>
+        <div style="font-size: 0.92rem; font-weight: 500;">${channelConfig.name}</div>
       </div>
       <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-gray-500 rounded-full border-2 border-gray-850"></div>
-      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
-      ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
-      ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
-      ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
-      ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
+      <span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center text-purple-400 hover:text-purple-300 text-xs font-bold z-10 transition-all duration-200" data-tooltip="Ir para o canal da Twitch" onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
+      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
+      ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
+      ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
+      ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
+      ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
     `;
     
     container.appendChild(button);
@@ -983,14 +984,15 @@ async function updateAllChannelsList() {
         <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
       </div>
       <div class="flex-1 relative overflow-hidden text-left flex items-center">
-        <div>${channelConfig.name}</div>
+        <div style="font-size: 0.6rem; font-weight: 500;">${channelConfig.name}</div>
       </div>
       <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-full border-2 border-gray-850"></div>
-      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-yellow-500 bg-yellow-300 rounded-full text-yellow-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity">?</span>` : ''}
-      ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-purple-500 bg-purple-300 rounded-full text-purple-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity">?</span>` : ''}
-      ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-blue-500 bg-blue-300 rounded-full text-blue-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity">?</span>` : ''}
-      ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-gray-400 bg-gray-300 rounded-full text-gray-800 text-xs font-bold z-10" data-tooltip="Canal iniciante">?</span>` : ''}
-      ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-gray-300 bg-white rounded-full text-gray-800 text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades">?</span>` : ''}
+      <span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center text-purple-400 hover:text-purple-300 text-xs font-bold z-10 transition-all duration-200" data-tooltip="Ir para o canal da Twitch" onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
+      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
+      ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
+      ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
+      ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
+      ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
     `;
     container.appendChild(button);
     // Atualiza avatar
@@ -1187,18 +1189,19 @@ async function updateAllChannelsListSmooth() {
           <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
         </div>
         <div class="flex-1 relative overflow-hidden text-left flex flex-col items-start justify-center">
-          <div>${channelConfig.name}</div>
+          <div style="font-size: 0.7rem; font-weight: 500;">${channelConfig.name}</div>
           <div id="game-${channel}" class="text-xs text-gray-400 w-full flex flex-row items-center justify-between">
-            <span id="game-name-${channel}" style="max-width:80%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:inline-block;vertical-align:middle;"></span>
+            <span id="game-name-${channel}" style="font-size: 0.6rem; max-width:80%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:inline-block;vertical-align:middle;"></span>
             <span id="viewers-${channel}" style="margin-left:auto;margin-right:15px;text-align:right;"></span>
           </div>
         </div>
         <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-full border-2 border-gray-850"></div>
-        ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-yellow-500 bg-yellow-300 rounded-full text-yellow-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity">?</span>` : ''}
-        ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-purple-500 bg-purple-300 rounded-full text-purple-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity">?</span>` : ''}
-        ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-blue-500 bg-blue-300 rounded-full text-blue-900 text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity">?</span>` : ''}
-        ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-gray-400 bg-gray-300 rounded-full text-gray-800 text-xs font-bold z-10" data-tooltip="Canal iniciante">?</span>` : ''}
-        ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center border border-gray-300 bg-white rounded-full text-gray-800 text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades">?</span>` : ''}
+        <span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center text-purple-400 hover:text-purple-300 text-xs font-bold z-10 transition-all duration-200" data-tooltip="Ir para o canal da Twitch" onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
+        ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
+        ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
+        ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
+        ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
+        ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
       `;
       container.appendChild(button);
     }

@@ -1653,6 +1653,7 @@ body.resizing * {
 #stats-content .badge-tipo[data-tipo="plus"] { background: #c4b5fd; color: #6d28d9; }
 #stats-content .badge-tipo[data-tipo="normal"] { background: #93c5fd; color: #1e40af; }
 #stats-content .badge-tipo[data-tipo="iniciante"] { background: #bbf7d0; color: #166534; }
+#stats-content .badge-tipo[data-tipo="custom"] { background: #ffffff; color: #666666; }
 #stats-content .badge-tipo[data-tipo="desertor"] { background: #e5e7eb; color: #374151; }
 #stats-content .badge-tipo:hover {
   filter: brightness(1.1);
@@ -1937,4 +1938,12 @@ body.resizing * {
   box-shadow: 
     0 4px 16px rgba(0, 0, 0, 0.25),
     0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+#channels-container button.canal-custom {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(243, 244, 246, 0.5) 100%) !important;
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(243,244,246,0.5) 100%) !important;
+  color: #23272a !important;
+  border: 1.5px solid #e5e7eb !important;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05) !important;
 }

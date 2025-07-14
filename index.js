@@ -50,6 +50,8 @@ function getChannelButtonClasses(channelConfig) {
     typeClasses = 'bg-gradient-to-br from-emerald-500/20 via-green-600/30 to-lime-500/20 border border-emerald-400/30 shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20';
   } else if (channelConfig.type === 'desertor') {
     typeClasses = 'bg-gradient-to-br from-gray-400/10 via-gray-500/20 to-gray-600/10 border border-gray-400/20 shadow-lg shadow-gray-500/5 hover:shadow-gray-500/10';
+  } else if (channelConfig.type === 'custom') {
+    typeClasses = 'bg-white border border-gray-200 text-gray-900 shadow-md hover:shadow-lg';
   } else {
     typeClasses = 'bg-gradient-to-br from-gray-500/20 via-gray-600/30 to-gray-700/20 border border-gray-400/30 shadow-lg shadow-gray-500/10 hover:shadow-gray-500/20';
   }
@@ -925,6 +927,17 @@ function generateChannelButtons() {
     button.onclick = () => toggleLive(channel);
     button.id = `btn-${channel}`;
     button.className = getChannelButtonClasses(channelConfig);
+    if (channelConfig.type === 'custom') {
+      button.classList.add('canal-custom');
+    }
+    if (channelConfig.type === 'custom') {
+      button.style.setProperty('background', '#fff', 'important');
+      button.style.setProperty('backgroundColor', '#fff', 'important');
+      button.style.setProperty('backgroundImage', 'none', 'important');
+      button.style.setProperty('color', '#222', 'important');
+      button.style.setProperty('border', '1.5px solid #e5e7eb', 'important');
+      button.style.setProperty('boxShadow', '0 2px 8px 0 rgba(0,0,0,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05)', 'important');
+    }
     button.innerHTML = `
       <div class="relative">
         <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
@@ -939,6 +952,7 @@ function generateChannelButtons() {
       ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
       ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
       ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
+      ${channelConfig.type === 'custom' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este é um canal adicionado por você" data-type="custom">?</span>` : ''}
     `;
     
     container.appendChild(button);
@@ -979,6 +993,17 @@ async function updateAllChannelsList() {
     button.onclick = () => toggleLive(channel);
     button.id = `btn-${channel}`;
     button.className = getChannelButtonClasses(channelConfig);
+    if (channelConfig.type === 'custom') {
+      button.classList.add('canal-custom');
+    }
+    if (channelConfig.type === 'custom') {
+      button.style.setProperty('background', '#fff', 'important');
+      button.style.setProperty('backgroundColor', '#fff', 'important');
+      button.style.setProperty('backgroundImage', 'none', 'important');
+      button.style.setProperty('color', '#222', 'important');
+      button.style.setProperty('border', '1.5px solid #e5e7eb', 'important');
+      button.style.setProperty('boxShadow', '0 2px 8px 0 rgba(0,0,0,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05)', 'important');
+    }
     button.innerHTML = `
       <div class="relative">
         <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
@@ -993,6 +1018,7 @@ async function updateAllChannelsList() {
       ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
       ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
       ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
+      ${channelConfig.type === 'custom' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este é um canal adicionado por você" data-type="custom">?</span>` : ''}
     `;
     container.appendChild(button);
     // Atualiza avatar
@@ -1058,25 +1084,35 @@ function hasChannelChanges(newOnlineChannels, newOfflineChannels, allData) {
   // Verificar mudanças na lista de online/offline
   const onlineChanged = JSON.stringify(newOnlineChannels.sort()) !== JSON.stringify(previousChannelState.onlineChannels.sort());
   const offlineChanged = JSON.stringify(newOfflineChannels.sort()) !== JSON.stringify(previousChannelState.offlineChannels.sort());
-  
-  if (onlineChanged || offlineChanged) {
-    return true;
+  const countChanged = (newOnlineChannels.length + newOfflineChannels.length) !== (previousChannelState.onlineChannels.length + previousChannelState.offlineChannels.length);
+
+  // Mudanças estruturais exigem rebuild
+  if (onlineChanged || offlineChanged || countChanged) {
+    return { full: true, partial: false, changedChannels: [] };
   }
-  
-  // Verificar mudanças nos dados dos jogos e viewers
+
+  // Mudanças só de viewers/jogo
+  let changedChannels = [];
   for (const channel of Object.keys(twitchChannels)) {
     const userData = allData[channel];
     const currentGame = userData?.stream?.game?.name || 'Offline';
     const currentViewers = userData?.stream?.viewersCount || 0;
     const previousGame = previousChannelState.gameData[channel] || 'Offline';
     const previousViewers = previousChannelState.viewerData[channel] || 0;
-    
     if (currentGame !== previousGame || currentViewers !== previousViewers) {
-      return true;
+      changedChannels.push({ channel, currentGame, currentViewers });
     }
   }
-  
-  return false;
+  // Mudança de canais (adição/remoção)
+  const prevChannels = Object.keys(previousChannelState.gameData || {});
+  const currChannels = Object.keys(twitchChannels);
+  if (prevChannels.length !== currChannels.length || prevChannels.some(c => !currChannels.includes(c))) {
+    return { full: true, partial: false, changedChannels: [] };
+  }
+  if (changedChannels.length > 0) {
+    return { full: false, partial: true, changedChannels };
+  }
+  return { full: false, partial: false, changedChannels: [] };
 }
 
 // Função para atualizar o estado anterior
@@ -1095,7 +1131,7 @@ function updatePreviousChannelState(onlineChannels, offlineChannels, allData) {
   }
 }
 
-// Substituir updateAllChannelsListSmooth para usar o fetch único
+// Substituir chamada de hasChannelChanges e atualizar só viewers/jogo se necessário
 async function updateAllChannelsListSmooth() {
   const container = document.getElementById('channels-container');
   if (!container) return;
@@ -1123,15 +1159,31 @@ async function updateAllChannelsListSmooth() {
   }
 
   // Verificar se houve mudanças antes de atualizar
-  if (!hasChannelChanges(onlineChannels, offlineChannels, allData)) {
-    console.log('Nenhuma mudança detectada, pulando atualização da lista de canais');
+  const changeResult = hasChannelChanges(onlineChannels, offlineChannels, allData);
+  if (!changeResult.full && changeResult.partial && changeResult.changedChannels.length > 0) {
+    // Só viewers/jogo mudaram, atualizar só os elementos
+    changeResult.changedChannels.forEach(({ channel, currentGame, currentViewers }) => {
+      const gameNameSpan = document.getElementById(`game-name-${channel}`);
+      const viewersSpan = document.getElementById(`viewers-${channel}`);
+      if (gameNameSpan) gameNameSpan.textContent = currentGame;
+      if (viewersSpan) viewersSpan.textContent = currentViewers ? currentViewers : '';
+      // Atualizar marquee se necessário
+      if (gameNameSpan && typeof applyMarqueeIfNeeded === 'function') applyMarqueeIfNeeded(gameNameSpan);
+    });
+    // Atualizar estado anterior
+    updatePreviousChannelState(onlineChannels, offlineChannels, allData);
     return;
   }
+  if (!changeResult.full) {
+    // Nenhuma mudança
+    return;
+  }
+  // ... (continua normalmente reconstruindo a lista)
 
   // Ordenar favoritos no topo e depois por type
   const stats = window.userStats || {};
   const favoritos = Object.keys(stats.canaisFavoritos || {}).filter(c => stats.canaisFavoritos[c] > 0);
-  const typeOrder = { premium: 1, plus: 2, normal: 3, iniciante: 4, desertor: 5 };
+  const typeOrder = { premium: 1, plus: 2, normal: 3, iniciante: 4, custom: 5, desertor: 6 };
   function sortFavoritosType(arr) {
     return arr.sort((a, b) => {
       // Desertor nunca fica no topo
@@ -1202,6 +1254,7 @@ async function updateAllChannelsListSmooth() {
         ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
         ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
         ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
+        ${channelConfig.type === 'custom' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este é um canal adicionado por você" data-type="custom">?</span>` : ''}
       `;
       container.appendChild(button);
     }
@@ -1236,6 +1289,9 @@ async function updateAllChannelsListSmooth() {
     updateAvatarBorder(channel);
     // Atualiza classe mantendo a estrutura base
     button.className = getChannelButtonClasses(channelConfig);
+    if (channelConfig.type === 'custom') {
+      button.classList.add('canal-custom');
+    }
     // Remover lógica de duplicação do informativo premium
     // Atualiza nome premium (garante classes)
     const nameDiv = button.querySelector('div:not([id^="avatar-"]):not([id^="status-"])');
@@ -1612,13 +1668,9 @@ document.addEventListener('DOMContentLoaded', function() {
           <span class="valor"><span class="icon">⏱️</span> ${totalTempo}</span>
           <span class="label">Tempo total</span>
         </div>
-        <div class="card-total">
-          <span class="valor"><span class="icon">🟢</span> ${window.getOnlineUsers ? window.getOnlineUsers() : 0}</span>
-          <span class="label">Usuários online</span>
-        </div>
       </div>
       <div class="flex flex-row flex-wrap gap-8 max-w-5xl mx-auto mb-4 items-start justify-center" style="width:90%;">
-        <div class="flex-1 min-w-[260px] max-w-[1000px]" style="max-width:1000px;width:100%;">
+        <div class="flex-1 min-w-[260px] max-w-[500px]" style="max-width:500px;width:50%;">
           <div class="font-semibold text-lg text-gray-200 mb-2 flex items-center gap-2"><span>Top 5 canais por tempo assistido</span></div>
           <div class="space-y-2">
             ${topTempo.map(([c,seg],i)=>{
@@ -1637,10 +1689,40 @@ document.addEventListener('DOMContentLoaded', function() {
             }).join('')}
           </div>
         </div>
+        <div class="flex-1 min-w-[260px] max-w-[500px]" style="max-width:500px;width:50%;">
+          <div class="font-semibold text-lg text-gray-200 mb-2 flex items-center gap-2"><span>Canais customizados</span></div>
+          <div class="space-y-2" id="custom-channels-list">
+            ${loadCustomChannels().length === 0 ? '<div class="text-gray-400 text-sm">Nenhum canal customizado</div>' :
+              loadCustomChannels().map(({id, name}) =>
+                `<div class='flex items-center gap-2'>
+                  <span class='w-32 truncate canal-nome-tooltip' data-nome='${name}'>${name}</span>
+                  <button class='remove-custom-channel-btn px-2 py-1 rounded bg-red-500 hover:bg-red-600 text-white text-xs font-bold' data-id='${id}' title='Remover canal'>🗑️</button>
+                </div>`
+              ).join('')
+            }
+          </div>
+        </div>
       </div>
       <div class="mb-2 text-xs text-gray-400 max-w-5xl mx-auto" style="width:90%;">Última visita: <span class="font-mono">${stats.ultimaVisita?new Date(stats.ultimaVisita).toLocaleString():'-'}</span></div>
       <div class="mt-2 max-w-5xl mx-auto" style="width:90%;"><button id="btn-exportar-json" class="exportar-btn"><svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1' /></svg>Exportar JSON</button></div>
     `;
+    // Adicionar listeners para remover canais customizados
+    setTimeout(() => {
+      document.querySelectorAll('.remove-custom-channel-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = this.getAttribute('data-id');
+          // Remover do localStorage
+          let list = loadCustomChannels();
+          list = list.filter(c => c.id !== id);
+          saveCustomChannels(list);
+          // Remover do objeto global
+          if (twitchChannels[id]) delete twitchChannels[id];
+          // Atualizar painel e lista de canais
+          renderStats();
+          updateAllChannelsListSmooth && updateAllChannelsListSmooth();
+        });
+      });
+    }, 100);
   }
   // Atualização em tempo real do painel
   let statsInterval;
@@ -1802,114 +1884,89 @@ document.addEventListener('DOMContentLoaded', function() {
 })(); 
 
 // ========== CONTADOR SIMPLES DE USUÁRIOS ONLINE ==========
-(function() {
-  let sessionId = null;
-  
-  // Gerar ID único para esta sessão
-  function generateSessionId() {
-    return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+// (REMOVIDO: sistema antigo de contador de usuários online baseado em localStorage)
+
+// Adicionar suporte para canais customizados
+function loadCustomChannels() {
+  try {
+    const data = JSON.parse(localStorage.getItem('customChannels') || '[]');
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
   }
-  
-  // Função para atualizar contador na interface
-  function updateOnlineCounter(count) {
-    const counterElement = document.getElementById('online-users-counter');
-    if (counterElement) {
-      const currentCount = parseInt(counterElement.textContent) || 0;
-      counterElement.textContent = count;
-      
-      // Adicionar animação apenas se o número mudou
-      if (count !== currentCount) {
-        counterElement.classList.add('pulse');
-        setTimeout(() => {
-          counterElement.classList.remove('pulse');
-        }, 500);
-      }
+}
+function saveCustomChannels(list) {
+  localStorage.setItem('customChannels', JSON.stringify(list));
+}
+function addCustomChannel(name) {
+  const id = name.toLowerCase().replace(/[^a-z0-9_]/gi, '');
+  if (!id) return;
+  if (twitchChannels[id]) return; // já existe
+  twitchChannels[id] = { name, color: 'bg-cyan-500', type: 'custom' };
+  const customList = loadCustomChannels();
+  customList.push({ id, name });
+  saveCustomChannels(customList);
+  updateAllChannelsListSmooth && updateAllChannelsListSmooth();
+}
+function restoreCustomChannels() {
+  const customList = loadCustomChannels();
+  customList.forEach(({ id, name }) => {
+    if (!twitchChannels[id]) {
+      twitchChannels[id] = { name, color: 'bg-cyan-500', type: 'custom' };
     }
+  });
+}
+// Restaurar canais custom ao iniciar
+restoreCustomChannels();
+// Adicionar listener ao botão
+window.addEventListener('DOMContentLoaded', function() {
+  const btnAdd = document.getElementById('btn-add-channel');
+  const modal = document.getElementById('modal-add-channel');
+  const input = document.getElementById('input-add-channel');
+  const btnConfirm = document.getElementById('btn-confirm-add-channel');
+  const btnCancel = document.getElementById('btn-cancel-add-channel');
+
+  function openModal() {
+    modal.classList.remove('hidden');
+    input.value = '';
+    input.focus();
   }
-  
-  // Função para contar usuários ativos
-  function countActiveUsers() {
-    const activeUsers = JSON.parse(localStorage.getItem('active_users') || '{}');
-    const now = Date.now();
-    let count = 0;
-    
-    // Contar usuários ativos (últimos 30 segundos)
-    Object.keys(activeUsers).forEach(id => {
-      if (now - activeUsers[id] <= 30000) {
-        count++;
-      }
-    });
-    
-    updateOnlineCounter(count);
-    return count;
+  function closeModal() {
+    modal.classList.add('hidden');
+    input.value = '';
   }
-  
-  // Função para registrar atividade
-  function registerActivity() {
-    if (!sessionId) return;
-    
-    const activeUsers = JSON.parse(localStorage.getItem('active_users') || '{}');
-    activeUsers[sessionId] = Date.now();
-    
-    // Limpar usuários inativos
-    const now = Date.now();
-    Object.keys(activeUsers).forEach(id => {
-      if (now - activeUsers[id] > 30000) {
-        delete activeUsers[id];
-      }
-    });
-    
-    localStorage.setItem('active_users', JSON.stringify(activeUsers));
-    countActiveUsers();
+  if (btnAdd) {
+    btnAdd.addEventListener('click', openModal);
   }
-  
-  // Inicializar sistema
-  function initSimpleCounter() {
-    sessionId = generateSessionId();
-    
-    // Registrar primeira atividade
-    registerActivity();
-    
-    // Registrar atividade a cada 10 segundos
-    setInterval(registerActivity, 10000);
-    
-    // Contar usuários a cada 5 segundos
-    setInterval(countActiveUsers, 5000);
-    
-    // Limpar ao fechar a página
-    window.addEventListener('beforeunload', () => {
-      const activeUsers = JSON.parse(localStorage.getItem('active_users') || '{}');
-      delete activeUsers[sessionId];
-      localStorage.setItem('active_users', JSON.stringify(activeUsers));
-    });
-    
-    // Detectar quando a aba fica visível
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) {
-        registerActivity();
+  if (btnCancel) {
+    btnCancel.addEventListener('click', closeModal);
+  }
+  if (btnConfirm) {
+    btnConfirm.addEventListener('click', function() {
+      const name = input.value.trim();
+      if (name) {
+        addCustomChannel(name);
+        closeModal();
+      } else {
+        input.focus();
       }
     });
   }
-  
-  // Inicializar quando o DOM estiver pronto
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSimpleCounter);
-  } else {
-    initSimpleCounter();
-  }
-  
-  // Expor para uso global
-  window.getOnlineUsers = () => {
-    const activeUsers = JSON.parse(localStorage.getItem('active_users') || '{}');
-    const now = Date.now();
-    let count = 0;
-    
-    Object.keys(activeUsers).forEach(id => {
-      if (now - activeUsers[id] <= 30000) {
-        count++;
+  // Enter para adicionar, Esc para cancelar
+  if (input) {
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        btnConfirm.click();
+      } else if (e.key === 'Escape') {
+        closeModal();
       }
     });
-    
-    return count;
-  };
-})();
+  }
+  // Fechar modal ao clicar fora
+  if (modal) {
+    modal.addEventListener('mousedown', function(e) {
+      if (e.target === modal) closeModal();
+    });
+  }
+});
+

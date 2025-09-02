@@ -1,41 +1,41 @@
 // Lista de canais disponíveis
 const twitchChannels = {
-  moldador:         { name: 'Moldador',        color: 'bg-indigo-600', type: 'premium' },
-  lucyjapinha:      { name: 'Lucyjapinha',     color: 'bg-pink-500',   type: 'premium' },
-  galvinoo:         { name: 'Galvinoo',        color: 'bg-green-500',  type: 'premium' },
-  amandinhalsls:    { name: 'AmandinhaLsLs',   color: 'bg-blue-500',   type: 'plus' },
-  barbasirius:      { name: 'Obarbasirius',    color: 'bg-yellow-500', type: 'plus' },
-  lobinhopelud:     { name: 'LobinhoPeludo',   color: 'bg-pink-500',   type: 'plus' },
-  raptornoed:       { name: 'Raptornoed',      color: 'bg-pink-500',   type: 'plus' },
-  bhaaskara:        { name: 'Bhaaskara',       color: 'bg-green-500',  type: 'plus' },
-  lordrebechi:      { name: 'LordRebechi',     color: 'bg-yellow-500', type: 'plus' },
-  sauletagames:     { name: 'Sauletagames',    color: 'bg-yellow-500', type: 'normal' },
-  deedobr:          { name: 'DeedoBR',         color: 'bg-yellow-500', type: 'normal' },
-  arondesu0:        { name: 'AronDesu0',       color: 'bg-blue-500',   type: 'normal' },
-  desert1v4:        { name: 'TsDesert',        color: 'bg-pink-500',   type: 'iniciante' },
-  ofirofiro:        { name: 'OfirOfiro',       color: 'bg-pink-500',   type: 'iniciante' },
-  srpikenno:        { name: 'Pikenno',         color: 'bg-pink-500',   type: 'iniciante' },
-  lorran_aa:        { name: 'Lorran_AA',       color: 'bg-pink-500',   type: 'desertor' },
-  gyanvt15:         { name: 'Gyanvt15',        color: 'bg-pink-500',   type: 'desertor' },
-  pyixurr:          { name: 'Pyixurr',         color: 'bg-pink-500',   type: 'desertor' },
-  guistoper:        { name: 'Guistoper',       color: 'bg-pink-500',   type: 'desertor' },
-  bypgomes:         { name: 'BypGomes',        color: 'bg-pink-500',   type: 'desertor' },
-  lancer649:        { name: 'Lancer649',       color: 'bg-pink-500',   type: 'desertor' },
-  wasenhoo:         { name: 'Wasenhoo',        color: 'bg-pink-500',   type: 'desertor' },
-  warumak:          { name: 'Warumak',         color: 'bg-pink-500',   type: 'desertor' },
-  nicknicollyx:     { name: 'NickNicollyx',    color: 'bg-pink-500',   type: 'desertor' },
-  giantobeso:       { name: 'Giantobeso',      color: 'bg-pink-500',   type: 'desertor' },
-  princessstellar:  { name: 'Princessstellar', color: 'bg-pink-500',   type: 'desertor' },
-  pedrophaj:        { name: 'Pedrophaj',       color: 'bg-pink-500',   type: 'desertor' },
-  proogamess:       { name: 'Proogamess',      color: 'bg-pink-500',   type: 'desertor' },
-  dark:             { name: 'Dark',            color: 'bg-pink-500',   type: 'desertor' },
-  satooro:          { name: 'Satooro',         color: 'bg-pink-500',   type: 'desertor' },
-  vulkanotg:        { name: 'VulkanoTG',       color: 'bg-pink-500',   type: 'desertor' },
+  moldador:         { name: 'Moldador',        color: 'bg-gradient-to-br from-amber-500 to-orange-500', type: 'premium' },
+  lucyjapinha:      { name: 'Lucyjapinha',     color: 'bg-gradient-to-br from-amber-500 to-orange-500', type: 'premium' },
+  galvinoo:         { name: 'Galvinoo',        color: 'bg-gradient-to-br from-amber-500 to-orange-500', type: 'premium' },
+  amandinhalsls:    { name: 'AmandinhaLsLs',   color: 'bg-gradient-to-br from-purple-500 to-indigo-500', type: 'plus' },
+  barbasirius:      { name: 'Obarbasirius',    color: 'bg-gradient-to-br from-purple-500 to-indigo-500', type: 'plus' },
+  lobinhopelud:     { name: 'LobinhoPeludo',   color: 'bg-gradient-to-br from-purple-500 to-indigo-500', type: 'plus' },
+  raptornoed:       { name: 'Raptornoed',      color: 'bg-gradient-to-br from-purple-500 to-indigo-500', type: 'plus' },
+  bhaaskara:        { name: 'Bhaaskara',       color: 'bg-gradient-to-br from-purple-500 to-indigo-500', type: 'plus' },
+  lordrebechi:      { name: 'LordRebechi',     color: 'bg-gradient-to-br from-purple-500 to-indigo-500', type: 'plus' },
+  sauletagames:     { name: 'Sauletagames',    color: 'bg-gradient-to-br from-blue-500 to-teal-500', type: 'normal' },
+  deedobr:          { name: 'DeedoBR',         color: 'bg-gradient-to-br from-blue-500 to-teal-500', type: 'normal' },
+  arondesu0:        { name: 'AronDesu0',       color: 'bg-gradient-to-br from-blue-500 to-teal-500', type: 'normal' },
+  desert1v4:        { name: 'TsDesert',        color: 'bg-gradient-to-br from-emerald-500 to-lime-500', type: 'iniciante' },
+  ofirofiro:        { name: 'OfirOfiro',       color: 'bg-gradient-to-br from-emerald-500 to-lime-500', type: 'iniciante' },
+  srpikenno:        { name: 'Pikenno',         color: 'bg-gradient-to-br from-emerald-500 to-lime-500', type: 'iniciante' },
+  lorran_aa:        { name: 'Lorran_AA',       color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  gyanvt15:         { name: 'Gyanvt15',        color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  pyixurr:          { name: 'Pyixurr',         color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  guistoper:        { name: 'Guistoper',       color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  bypgomes:         { name: 'BypGomes',        color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  lancer649:        { name: 'Lancer649',       color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  wasenhoo:         { name: 'Wasenhoo',        color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  warumak:          { name: 'Warumak',         color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  nicknicollyx:     { name: 'NickNicollyx',    color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  giantobeso:       { name: 'Giantobeso',      color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  princessstellar:  { name: 'Princessstellar', color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  pedrophaj:        { name: 'Pedrophaj',       color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  proogamess:       { name: 'Proogamess',      color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  dark:             { name: 'Dark',            color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  satooro:          { name: 'Satooro',         color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
+  vulkanotg:        { name: 'VulkanoTG',       color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
 };
 
-const URL = 'robsomchatmanager.netlify.app';
+//const URL = 'robsomchatmanager.netlify.app';
 //Mantenha este comentario
-//const URL = 'localhost&parent=127.0.0.1';
+const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {
@@ -132,7 +132,7 @@ function showOnlineNowCard(channel) {
   
   notificationCard.innerHTML = `
     <div class="relative">
-      <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="notification-avatar-${channel}">${channelConfig.name.charAt(0)}</div>
+      <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-transparent transition-all duration-200" id="notification-avatar-${channel}">${channelConfig.name.charAt(0)}</div>
     </div>
     <div class="flex-1 relative overflow-hidden text-left flex flex-col items-start justify-center">
       <div class="text-white font-semibold">${channelConfig.name}</div>
@@ -832,9 +832,9 @@ function updateAvatarBorder(channel) {
   } else {
     removeGlobalRGBEffect(channel);
     if (isOnline) {
-      img.className = 'w-8 h-8 rounded-lg object-cover border-2 border-green-500';
+      img.className = 'w-8 h-8 rounded-lg object-cover border-green-500';
     } else {
-      img.className = 'w-8 h-8 rounded-lg object-cover border-2 border-gray-500';
+      img.className = 'w-8 h-8 rounded-lg object-cover border-gray-500';
     }
     img.style.boxShadow = '';
     img.style.animation = '';
@@ -941,22 +941,51 @@ function generateChannelButtons() {
       button.style.setProperty('boxShadow', '0 2px 8px 0 rgba(0,0,0,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05)', 'important');
     }
     button.innerHTML = `
-      <div class="relative">
-        <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px;">${firstLetter}</div>
+      <div class="relative flex items-center gap-3 w-full">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 ${channelConfig.color} flex items-center justify-center font-bold border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 50%;">${firstLetter}</div>
+        </div>
+        <div class="flex-1 min-w-0 relative overflow-hidden text-left">
+          <div class="text-sm font-medium truncate">${channelConfig.name}</div>
+        </div>
+        <div id="status-${channel}" class="flex-shrink-0 w-3 h-3 bg-gray-500 rounded-full border-gray-850"></div>
       </div>
-      <div class="flex-1 relative overflow-hidden text-left flex items-center">
-        <div style="font-size: 0.92rem; font-weight: 500;">${channelConfig.name}</div>
-      </div>
-      <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-gray-500 rounded-lg border-2 border-gray-850"></div>
-      <span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center text-purple-400 hover:text-purple-300 text-xs font-bold z-10 transition-all duration-200" data-tooltip="Ir para o canal da Twitch" onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
-      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
-      ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
-      ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
-      ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
-      ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
-      ${channelConfig.type === 'custom' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este é um canal adicionado por você" data-type="custom">?</span>` : ''}
+      <span class="canal-action-btn canal-btn cursor-pointer z-10 
+                   flex items-center justify-center 
+                   hover:bg-purple-400 transition-all duration-200"
+            data-tooltip="Ir para o canal da Twitch"
+            onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
+      ${channelConfig.type === 'premium' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                      flex items-center justify-center
+                                                      hover:bg-gray-400 transition-all duration-200"
+                                                data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity"
+                                                data-type="premium">?</span>` : ''}
+      ${channelConfig.type === 'plus' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                  flex items-center justify-center
+                                                  hover:bg-gray-400 transition-all duration-200"
+                                            data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity"
+                                            data-type="plus">?</span>` : ''}
+      ${channelConfig.type === 'normal' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                   flex items-center justify-center
+                                                   hover:bg-gray-400 transition-all duration-200"
+                                             data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity"
+                                             data-type="normal">?</span>` : ''}
+      ${channelConfig.type === 'iniciante' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                       flex items-center justify-center
+                                                       hover:bg-gray-400 transition-all duration-200"
+                                                 data-tooltip="Canal iniciante"
+                                                 data-type="iniciante">?</span>` : ''}
+      ${channelConfig.type === 'desertor' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                      flex items-center justify-center
+                                                      hover:bg-gray-400 transition-all duration-200"
+                                                data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades"
+                                                data-type="desertor">?</span>` : ''}
+      ${channelConfig.type === 'custom' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                    flex items-center justify-center
+                                                    hover:bg-gray-400 transition-all duration-200"
+                                              data-tooltip="Este é um canal adicionado por você"
+                                              data-type="custom">?</span>` : ''}
     `;
-    
     container.appendChild(button);
   });
 }
@@ -1007,20 +1036,20 @@ async function updateAllChannelsList() {
       button.style.setProperty('boxShadow', '0 2px 8px 0 rgba(0,0,0,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05)', 'important');
     }
     button.innerHTML = `
-      <div class="relative">
-        <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px;">${firstLetter}</div>
+      <div class="relative flex items-center gap-3 w-full">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 ${channelConfig.color} flex items-center justify-center font-bold border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 50%;">${firstLetter}</div>
+        </div>
+        <div class="flex-1 min-w-0 relative overflow-hidden text-left">
+          <div class="text-sm font-medium truncate">${channelConfig.name}</div>
+        </div>
+        <div id="status-${channel}" class="canal-action-btn ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-full  border-gray-850" style="width: 12px; height: 12px;" title="${isOnline ? 'Canal online' : 'Canal offline'}"></div>
       </div>
-      <div class="flex-1 relative overflow-hidden text-left flex items-center">
-        <div style="font-size: 0.6rem; font-weight: 500;">${channelConfig.name}</div>
-      </div>
-      <div id="status-${channel}" class="canal-action-btn ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-lg border-2 border-gray-850" style="position: absolute; bottom: 0; right: 0;"></div>
-      <!-- Botão Ir para Canal - Canto superior direito -->
       <span class="canal-action-btn canal-btn cursor-pointer z-10 
                    flex items-center justify-center 
                    hover:bg-purple-400 transition-all duration-200"
             data-tooltip="Ir para o canal da Twitch"
             onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
-      <!-- Botão Informações - À esquerda do botão canal -->
       ${channelConfig.type === 'premium' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
                                                       flex items-center justify-center
                                                       hover:bg-gray-400 transition-all duration-200"
@@ -1051,14 +1080,14 @@ async function updateAllChannelsList() {
                                                     hover:bg-gray-400 transition-all duration-200"
                                               data-tooltip="Este é um canal adicionado por você"
                                               data-type="custom">?</span>` : ''}
-
     `;
+    
     container.appendChild(button);
     // Atualiza avatar
     fetchTwitchAvatar(channel).then(avatarUrl => {
       const avatarDiv = document.getElementById(`avatar-${channel}`);
       if (avatarDiv && avatarUrl) {
-        avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.9);" />`;
+        avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" />`;
         avatarDiv.style.background = 'none';
         avatarDiv.style.color = 'transparent';
       }
@@ -1276,7 +1305,7 @@ async function updateAllChannelsListSmooth() {
       button.onclick = () => toggleLive(channel);
       button.innerHTML = `
         <div class="relative">
-          <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px;">${firstLetter}</div>
+          <div class="w-8 h-8 ${channelConfig.color} flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 50%;">${firstLetter}</div>
         </div>
         <div class="flex-1 relative overflow-hidden text-left flex flex-col items-start justify-center">
           <div style="font-size: 0.7rem; font-weight: 500;">${channelConfig.name}</div>
@@ -1335,7 +1364,7 @@ async function updateAllChannelsListSmooth() {
     // Avatar
     const avatarDiv = document.getElementById(`avatar-${channel}`);
     if (avatarDiv && avatarUrl) {
-      avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.9);" />`;
+      avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" />`;
       avatarDiv.style.background = 'none';
       avatarDiv.style.color = 'transparent';
     }

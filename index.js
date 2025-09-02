@@ -33,13 +33,13 @@ const twitchChannels = {
   vulkanotg:        { name: 'VulkanoTG',       color: 'bg-pink-500',   type: 'desertor' },
 };
 
-const URL = 'robsomchatmanager.netlify.app';
+//const URL = 'robsomchatmanager.netlify.app';
 //Mantenha este comentario
-//const URL = 'localhost&parent=127.0.0.1';
+const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {
-  const baseClasses = 'flex items-center space-x-2 mt-1 w-full hover:bg-gray-700 rounded-lg px-3 py-2 transition-all duration-300 relative min-h-[56px] backdrop-blur-sm';
+  const baseClasses = 'flex items-center space-x-2 mt-1 w-full hover:bg-gray-700 rounded-lg px-3 py-1.5 transition-all duration-300 relative min-h-[50px] backdrop-blur-sm';
   let typeClasses = '';
   
   if (channelConfig.type === 'premium') {
@@ -132,13 +132,13 @@ function showOnlineNowCard(channel) {
   
   notificationCard.innerHTML = `
     <div class="relative">
-      <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="notification-avatar-${channel}">${channelConfig.name.charAt(0)}</div>
+      <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="notification-avatar-${channel}">${channelConfig.name.charAt(0)}</div>
     </div>
     <div class="flex-1 relative overflow-hidden text-left flex flex-col items-start justify-center">
       <div class="text-white font-semibold">${channelConfig.name}</div>
       <div class="text-green-200 text-xs font-bold">🟢 ONLINE AGORA!</div>
     </div>
-    <div id="notification-status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-gray-850 animate-pulse"></div>
+    <div id="notification-status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-lg border-2 border-gray-850 animate-pulse"></div>
   `;
   
   // Adicionar evento de clique para abrir a live
@@ -154,7 +154,7 @@ function showOnlineNowCard(channel) {
   if (avatarUrl) {
     const notificationAvatarDiv = document.getElementById(`notification-avatar-${channel}`);
     if (notificationAvatarDiv) {
-      notificationAvatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full object-cover border-2 border-green-400" />`;
+      notificationAvatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-lg object-cover border-2 border-green-400" />`;
       notificationAvatarDiv.style.background = 'none';
       notificationAvatarDiv.style.color = 'transparent';
     }
@@ -218,9 +218,9 @@ function updateStatusIndicator(channel, isOnline) {
   const statusElement = document.getElementById(`status-${channel}`);
   if (statusElement) {
     if (isOnline) {
-      statusElement.className = 'absolute bottom-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-gray-850 animate-pulse';
+      statusElement.className = 'absolute bottom-0 right-0 w-3 h-3 bg-red-500 rounded-lg border-2 border-gray-850 animate-pulse';
     } else {
-      statusElement.className = 'absolute bottom-0 right-0 w-3 h-3 bg-gray-500 rounded-full border-2 border-gray-850';
+      statusElement.className = 'absolute bottom-0 right-0 w-3 h-3 bg-gray-500 rounded-lg border-2 border-gray-850';
     }
   }
   
@@ -545,7 +545,7 @@ function updateChatButtons() {
     const channelConfig = twitchChannels[channel];
     
     // Estilo simples apenas com avatar
-    button.className = 'flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-700 transition-all duration-200 p-1';
+    button.className = 'flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-700 transition-all duration-200 p-1';
     button.onclick = () => showSidebarChat(channel);
     button.title = `Chat de ${channelConfig ? channelConfig.name : channel}`;
     
@@ -553,7 +553,7 @@ function updateChatButtons() {
     const firstLetter = channelConfig ? channelConfig.name.charAt(0).toUpperCase() : channel.charAt(0).toUpperCase();
     
     button.innerHTML = `
-      <div class="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="chat-avatar-${channel}">${firstLetter}</div>
+      <div class="w-8 h-8 bg-gray-600 rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="chat-avatar-${channel}">${firstLetter}</div>
     `;
     
     chatButtonsContainer.appendChild(button);
@@ -563,7 +563,7 @@ function updateChatButtons() {
     if (avatarUrl) {
       const avatarDiv = button.querySelector(`#chat-avatar-${channel}`);
       if (avatarDiv) {
-        avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full object-cover border-2" />`;
+        avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 2px solid;" />`;
         avatarDiv.style.background = 'none';
         avatarDiv.style.color = 'transparent';
       }
@@ -653,7 +653,7 @@ async function updateAllAvatars() {
     const avatarUrl = await fetchTwitchAvatar(channel);
     const avatarDiv = document.getElementById(`avatar-${channel}`);
     if (avatarDiv && avatarUrl) {
-      avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full object-cover border-2" />`;
+      avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-lg object-cover border-2" />`;
       avatarDiv.style.background = 'none';
       avatarDiv.style.color = 'transparent';
       
@@ -832,9 +832,9 @@ function updateAvatarBorder(channel) {
   } else {
     removeGlobalRGBEffect(channel);
     if (isOnline) {
-      img.className = 'w-8 h-8 rounded-full object-cover border-2 border-green-500';
+      img.className = 'w-8 h-8 rounded-lg object-cover border-2 border-green-500';
     } else {
-      img.className = 'w-8 h-8 rounded-full object-cover border-2 border-gray-500';
+      img.className = 'w-8 h-8 rounded-lg object-cover border-2 border-gray-500';
     }
     img.style.boxShadow = '';
     img.style.animation = '';
@@ -942,12 +942,12 @@ function generateChannelButtons() {
     }
     button.innerHTML = `
       <div class="relative">
-        <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
+        <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px;">${firstLetter}</div>
       </div>
       <div class="flex-1 relative overflow-hidden text-left flex items-center">
         <div style="font-size: 0.92rem; font-weight: 500;">${channelConfig.name}</div>
       </div>
-      <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-gray-500 rounded-full border-2 border-gray-850"></div>
+      <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 bg-gray-500 rounded-lg border-2 border-gray-850"></div>
       <span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center text-purple-400 hover:text-purple-300 text-xs font-bold z-10 transition-all duration-200" data-tooltip="Ir para o canal da Twitch" onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
       ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
       ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center border z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
@@ -1008,26 +1008,57 @@ async function updateAllChannelsList() {
     }
     button.innerHTML = `
       <div class="relative">
-        <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
+        <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px;">${firstLetter}</div>
       </div>
       <div class="flex-1 relative overflow-hidden text-left flex items-center">
         <div style="font-size: 0.6rem; font-weight: 500;">${channelConfig.name}</div>
       </div>
-      <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-full border-2 border-gray-850"></div>
-      <span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center text-purple-400 hover:text-purple-300 text-xs font-bold z-10 transition-all duration-200" data-tooltip="Ir para o canal da Twitch" onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
-      ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
-      ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
-      ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
-      ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
-      ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
-      ${channelConfig.type === 'custom' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este é um canal adicionado por você" data-type="custom">?</span>` : ''}
+      <div id="status-${channel}" class="canal-action-btn ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-lg border-2 border-gray-850" style="position: absolute; bottom: 0; right: 0;"></div>
+      <!-- Botão Ir para Canal - Canto superior direito -->
+      <span class="canal-action-btn canal-btn cursor-pointer z-10 
+                   flex items-center justify-center 
+                   hover:bg-purple-400 transition-all duration-200"
+            data-tooltip="Ir para o canal da Twitch"
+            onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
+      <!-- Botão Informações - À esquerda do botão canal -->
+      ${channelConfig.type === 'premium' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                      flex items-center justify-center
+                                                      hover:bg-gray-400 transition-all duration-200"
+                                                data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity"
+                                                data-type="premium">?</span>` : ''}
+      ${channelConfig.type === 'plus' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                  flex items-center justify-center
+                                                  hover:bg-gray-400 transition-all duration-200"
+                                            data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity"
+                                            data-type="plus">?</span>` : ''}
+      ${channelConfig.type === 'normal' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                   flex items-center justify-center
+                                                   hover:bg-gray-400 transition-all duration-200"
+                                             data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity"
+                                             data-type="normal">?</span>` : ''}
+      ${channelConfig.type === 'iniciante' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                       flex items-center justify-center
+                                                       hover:bg-gray-400 transition-all duration-200"
+                                                 data-tooltip="Canal iniciante"
+                                                 data-type="iniciante">?</span>` : ''}
+      ${channelConfig.type === 'desertor' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                      flex items-center justify-center
+                                                      hover:bg-gray-400 transition-all duration-200"
+                                                data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades"
+                                                data-type="desertor">?</span>` : ''}
+      ${channelConfig.type === 'custom' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                    flex items-center justify-center
+                                                    hover:bg-gray-400 transition-all duration-200"
+                                              data-tooltip="Este é um canal adicionado por você"
+                                              data-type="custom">?</span>` : ''}
+
     `;
     container.appendChild(button);
     // Atualiza avatar
     fetchTwitchAvatar(channel).then(avatarUrl => {
       const avatarDiv = document.getElementById(`avatar-${channel}`);
       if (avatarDiv && avatarUrl) {
-        avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full object-cover border-2" />`;
+        avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.9);" />`;
         avatarDiv.style.background = 'none';
         avatarDiv.style.color = 'transparent';
       }
@@ -1245,7 +1276,7 @@ async function updateAllChannelsListSmooth() {
       button.onclick = () => toggleLive(channel);
       button.innerHTML = `
         <div class="relative">
-          <div class="w-8 h-8 ${channelConfig.color} rounded-full flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}">${firstLetter}</div>
+          <div class="w-8 h-8 ${channelConfig.color} rounded-lg flex items-center justify-center font-bold border-2 border-transparent transition-all duration-200" id="avatar-${channel}" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px;">${firstLetter}</div>
         </div>
         <div class="flex-1 relative overflow-hidden text-left flex flex-col items-start justify-center">
           <div style="font-size: 0.7rem; font-weight: 500;">${channelConfig.name}</div>
@@ -1254,14 +1285,45 @@ async function updateAllChannelsListSmooth() {
             <span id="viewers-${channel}" style="margin-left:auto;margin-right:15px;text-align:right;"></span>
           </div>
         </div>
-        <div id="status-${channel}" class="absolute bottom-0 right-0 w-3 h-3 ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-full border-2 border-gray-850"></div>
-        <span class="absolute top-0 right-0 cursor-pointer group w-5 h-5 flex items-center justify-center text-purple-400 hover:text-purple-300 text-xs font-bold z-10 transition-all duration-200" data-tooltip="Ir para o canal da Twitch" onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
-        ${channelConfig.type === 'premium' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity" data-type="premium">?</span>` : ''}
-        ${channelConfig.type === 'plus' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity" data-type="plus">?</span>` : ''}
-        ${channelConfig.type === 'normal' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity" data-type="normal">?</span>` : ''}
-        ${channelConfig.type === 'iniciante' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Canal iniciante" data-type="iniciante">?</span>` : ''}
-        ${channelConfig.type === 'desertor' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades" data-type="desertor">?</span>` : ''}
-        ${channelConfig.type === 'custom' ? `<span class="absolute top-0 right-6 cursor-pointer group w-5 h-5 flex items-center justify-center text-xs font-bold z-10" data-tooltip="Este é um canal adicionado por você" data-type="custom">?</span>` : ''}
+        <div id="status-${channel}" class="canal-action-btn ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-lg border-2 border-gray-850" style="position: absolute; bottom: 0; right: 0;"></div>
+        <!-- Botão Ir para Canal - Canto superior direito -->
+        <span class="canal-action-btn canal-btn cursor-pointer z-10 
+                     flex items-center justify-center 
+                     hover:bg-purple-400 transition-all duration-200"
+              data-tooltip="Ir para o canal da Twitch"
+              onclick="window.open('https://twitch.tv/${channel}', '_blank')">📺</span>
+        <!-- Botão Informações - À esquerda do botão canal -->
+        ${channelConfig.type === 'premium' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                        flex items-center justify-center
+                                                        hover:bg-gray-400 transition-all duration-200"
+                                                  data-tooltip="Este usuário é um membro Premium e recebeu uma faixa exclusiva por fazer +350h de live no Infinity"
+                                                  data-type="premium">?</span>` : ''}
+        ${channelConfig.type === 'plus' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                    flex items-center justify-center
+                                                    hover:bg-gray-400 transition-all duration-200"
+                                              data-tooltip="Este usuário é um membro Plus e recebeu uma faixa exclusiva por fazer +100h de live no Infinity"
+                                              data-type="plus">?</span>` : ''}
+        ${channelConfig.type === 'normal' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                     flex items-center justify-center
+                                                     hover:bg-gray-400 transition-all duration-200"
+                                               data-tooltip="Este usuário é um membro Normal e recebeu uma faixa exclusiva por fazer +50h de live no Infinity"
+                                               data-type="normal">?</span>` : ''}
+        ${channelConfig.type === 'iniciante' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                         flex items-center justify-center
+                                                         hover:bg-gray-400 transition-all duration-200"
+                                                   data-tooltip="Canal iniciante"
+                                                   data-type="iniciante">?</span>` : ''}
+        ${channelConfig.type === 'desertor' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                        flex items-center justify-center
+                                                        hover:bg-gray-400 transition-all duration-200"
+                                                  data-tooltip="Este canal não faz mais parte dos streamers do Infinity Nexus mas deixou saudades"
+                                                  data-type="desertor">?</span>` : ''}
+        ${channelConfig.type === 'custom' ? `<span class="canal-action-btn info-btn cursor-pointer z-10
+                                                      flex items-center justify-center
+                                                      hover:bg-gray-400 transition-all duration-200"
+                                                data-tooltip="Este é um canal adicionado por você"
+                                                data-type="custom">?</span>` : ''}
+
       `;
       // Adiciona o tooltip do título da live
       button.setAttribute('data-tooltip', isOnline ? `🔴 ${liveTitle}` : 'Offline');
@@ -1273,7 +1335,7 @@ async function updateAllChannelsListSmooth() {
     // Avatar
     const avatarDiv = document.getElementById(`avatar-${channel}`);
     if (avatarDiv && avatarUrl) {
-      avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full object-cover border-2" />`;
+      avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="avatar" style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.9);" />`;
       avatarDiv.style.background = 'none';
       avatarDiv.style.color = 'transparent';
     }
@@ -1295,7 +1357,10 @@ async function updateAllChannelsListSmooth() {
     // Status
     const statusDiv = button.querySelector(`#status-${channel}`);
     if (statusDiv) {
-      statusDiv.className = `absolute bottom-0 right-0 w-3 h-3 ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-full border-2 border-gray-850`;
+      statusDiv.className = `canal-action-btn ${isOnline ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} rounded-lg border-2 border-gray-850`;
+      statusDiv.style.position = 'absolute';
+      statusDiv.style.bottom = '0';
+      statusDiv.style.right = '0';
     }
     // Atualiza borda do avatar
     updateAvatarBorder(channel);

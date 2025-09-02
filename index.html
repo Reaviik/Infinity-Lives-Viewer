@@ -7,6 +7,7 @@
   <title>Infinity Nexus Parceiros</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="src/stats/styles/stats-dashboard.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
@@ -73,11 +74,62 @@
   <div id="resize-indicator" class="resize-indicator">0vw</div>
   <div id="resize-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:999; background:transparent;"></div>
   <div id="modal-stats-viewers" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
-    <div class="bg-gray-900 rounded-2xl shadow-2xl p-6 max-w-5xl w-full relative border border-gray-700 painel-stats-horizontal">
+    <div class="bg-gray-900 rounded-2xl shadow-2xl p-6 max-w-6xl w-full relative border border-gray-700 stats-dashboard">
       <button id="close-modal-stats" class="absolute top-3 right-3 text-gray-400 hover:text-red-400 text-2xl font-bold">&times;</button>
-      <h2 class="text-xl font-bold mb-4 text-gradient bg-gradient-to-r from-yellow-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">Estatísticas de Visualização</h2>
-      <div id="stats-content" class="space-y-2 text-base w-full">
-        <!-- Conteúdo dinâmico das estatísticas será inserido aqui pelo JS -->
+      <h2 class="text-2xl font-bold mb-6 text-gradient bg-gradient-to-r from-yellow-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+        Estatísticas de Visualização
+      </h2>
+      
+      <!-- Abas de navegação -->
+      <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-700 pb-2">
+        <button class="stats-tab px-4 py-2 rounded-lg transition-all duration-200 font-medium" data-tab="overview">
+          Visão Geral
+        </button>
+        <button class="stats-tab px-4 py-2 rounded-lg transition-all duration-200 font-medium" data-tab="time-watched">
+          Tempo Assistido
+        </button>
+        <button class="stats-tab px-4 py-2 rounded-lg transition-all duration-200 font-medium" data-tab="favorites">
+          Canais Favoritos
+        </button>
+        <button class="stats-tab px-4 py-2 rounded-lg transition-all duration-200 font-medium" data-tab="history">
+          Histórico de Uso
+        </button>
+        <button class="stats-tab px-4 py-2 rounded-lg transition-all duration-200 font-medium" data-tab="settings">
+          Configurações
+        </button>
+      </div>
+      
+      <!-- Conteúdo das abas -->
+      <div id="stats-tab-content" class="space-y-6">
+        <!-- Conteúdo será carregado dinamicamente -->
+      </div>
+      
+      <!-- Barra de status -->
+      <div class="mt-6 pt-4 border-t border-gray-700 flex flex-wrap items-center justify-between gap-2 text-sm">
+        <div class="flex items-center gap-2">
+          <span class="text-gray-400">Última atualização:</span>
+          <span id="last-update-time" class="font-mono text-gray-300"></span>
+        </div>
+        <div class="flex gap-2">
+          <button id="btn-refresh-stats" class="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 text-gray-200 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Atualizar
+          </button>
+          <button id="btn-export-json" class="px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" />
+            </svg>
+            Exportar JSON
+          </button>
+          <button id="btn-export-csv" class="px-3 py-1 rounded bg-green-600 hover:bg-green-700 text-white flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Exportar CSV
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -91,7 +143,9 @@
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="index.js"></script>
+  <script src="src/stats/components/StatsDashboard.js"></script>
   <script src="stats.js"></script>
 </body>
 

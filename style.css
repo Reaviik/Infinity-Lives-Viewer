@@ -34,7 +34,7 @@ body {
     0 2px 8px 0 rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   min-height: auto !important;
@@ -234,12 +234,18 @@ body {
   /* Removido efeito hover para elementos de live */
 }
 
-/* Avatar destacado com borda animada */
+/* Avatar destacado com borda animada - DESABILITADO para permitir formato quadrado */
+/*
 [id^="avatar-"] img {
   border: 3px solid #fff;
   box-shadow: 0 0 0 3px #23272a, 0 0 12px 2px #6d28d9;
   transition: box-shadow 0.3s, border 0.3s;
+  width: 32px !important;
+  height: 32px !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
 }
+*/
 [id^="avatar-"] img:hover {
   box-shadow: 0 0 0 4px #fff, 0 0 24px 4px #f59e42, 0 0 32px 8px #6d28d9;
   border: 3px solid #f59e42;
@@ -980,9 +986,9 @@ body.resizing .resize-indicator {
 /* Ajuste para o avatar do canal */
 .channel-avatar img,
 .channel-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
 }
 
 /* Garantir que as colunas mantenham suas proporções mínimas */
@@ -1103,6 +1109,8 @@ body.resizing * {
   z-index: 2;
 }
 
+/* Efeito de profundidade para avatares - DESABILITADO para permitir formato quadrado */
+/*
 [id^="avatar-"] img {
   border: 3px solid rgba(255, 255, 255, 0.9);
   box-shadow: 
@@ -1111,8 +1119,15 @@ body.resizing * {
     0 2px 4px 1px rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  width: 32px !important;
+  height: 32px !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
 }
+*/
 
+/* Hover para avatares - DESABILITADO */
+/*
 [id^="avatar-"] img:hover {
   transform: scale(1.05);
   box-shadow: 
@@ -1121,6 +1136,7 @@ body.resizing * {
     0 4px 8px 2px rgba(0, 0, 0, 0.3);
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
 }
+*/
 
 /* Status indicators mais sofisticados */
 [id^="status-"] {
@@ -1311,10 +1327,15 @@ body.resizing * {
     font-size: 0.875rem;
   }
   
+/* Responsividade para avatares - DESABILITADO */
+/*
   [id^="avatar-"] img {
-    width: 2rem;
-    height: 2rem;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+    object-fit: cover !important;
   }
+*/
   
   #channels-container button span[class*="inline-block"] {
     width: 1.25rem;
@@ -1394,25 +1415,7 @@ body.resizing * {
   background: #23272a !important;
 }
 
-/* Estilo específico para o "?" dos canais - agora com cores correspondentes ao tipo */
-#channels-container button span[data-tooltip] {
-  position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
-  width: 20px !important;
-  height: 20px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 50% !important;
-  font-size: 0.75rem !important;
-  font-weight: bold !important;
-  cursor: pointer !important;
-  z-index: 10 !important;
-  transition: all 0.2s ease !important;
-  backdrop-filter: blur(4px) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-}
+/* Estilos dos botões removidos - será readicionado posteriormente */
 
 
 /* Garantir que o botão do canal tenha position relative */
@@ -1835,115 +1838,327 @@ body.resizing * {
   z-index: 10 !important;
 }
 
-/* Garantir que o ícone de informação fique à esquerda do ícone da Twitch */
-[data-tooltip][data-type] {
-  position: absolute !important;
-  top: 0 !important;
-  right: 24px !important; /* 6 * 4px = 24px (right-6) */
-  z-index: 10 !important;
-}
-
-/* Para canais sem tipo (sem ícone de informação), o ícone da Twitch fica no canto */
-#channels-container button:not([data-type]) [onclick*="twitch.tv"] {
-  right: 0 !important;
-}
-
-/* Regras específicas para cada tipo de canal */
-#channels-container button [data-type] {
-  right: 24px !important;
-}
-/* ========== ESTILO PADRÃO PARA O ? DOS CANAIS ========== */
-#channels-container button [data-type] {
-  position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
-  left: 85% !important;
-  width: 20px !important;
-  height: 20px !important;
+/* Posicionamento de ícones removido - será readicionado posteriormente */
+/* ========== AVATARES QUADRADOS - SIMPLES E DIRETO ========== */
+[id^="avatar-"] {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  border-radius: 50% !important;
-  font-size: 0.75rem !important;
-  font-weight: bold !important;
-  cursor: pointer !important;
-  z-index: 10 !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  backdrop-filter: blur(8px) !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  border: none !important;
-  border-width: 0 !important;
-  border-style: none !important;
-  outline: none !important;
-  color: rgba(255, 255, 255, 0.85) !important;
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.15),
-    0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
-#channels-container button [data-type]:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  border: none !important;
-  border-width: 0 !important;
-  border-style: none !important;
-  outline: none !important;
-  color: rgba(255, 255, 255, 0.95) !important;
-  transform: scale(1.1) !important;
-  box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.25),
-    0 2px 8px rgba(0, 0, 0, 0.15) !important;
+[id^="avatar-"] img {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
+  display: block !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
 }
 
-/* ========== ESTILO PADRÃO PARA O ÍCONE DA TWITCH ========== */
-#channels-container button span[onclick*="twitch.tv"] {
+[id^="avatar-"] img:hover {
+  border: 2px solid rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  transform: scale(1.02) !important;
+}
+
+/* Responsividade mobile */
+@media (max-width: 768px) {
+  [id^="avatar-"] {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+  }
+  
+  [id^="avatar-"] img {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+    border-radius: 6px !important;
+  }
+} */
+
+/* Base para botões de canal - bolinhas circulares - FORÇA MÁXIMA */
+#channels-container button .canal-action-btn,
+#channels-container button span.canal-action-btn,
+.canal-action-btn.canal-btn,
+.canal-action-btn.info-btn {
   position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
-  left: 72% !important;
-  width: 20px !important;
-  height: 20px !important;
+  width: 12px !important;
+  height: 12px !important;
+  min-width: 12px !important;
+  max-width: 12px !important;
+  min-height: 12px !important;
+  max-height: 12px !important;
+  border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  border-radius: 50% !important;
-  font-size: 0.75rem !important;
-  font-weight: bold !important;
-  cursor: pointer !important;
+  font-size: 0.5rem !important;
+  line-height: 1 !important;
+  font-weight: normal !important;
   z-index: 10 !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  backdrop-filter: blur(8px) !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  border: none !important;
-  border-width: 0 !important;
-  border-style: none !important;
-  outline: none !important;
-  color: rgba(255, 255, 255, 0.85) !important;
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.15),
-    0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
+  backdrop-filter: blur(4px) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  text-align: center !important;
+  /* Sobrescrever TODAS as propriedades Tailwind conflitantes */
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-#channels-container button span[onclick*="twitch.tv"]:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  border: none !important;
-  border-width: 0 !important;
-  border-style: none !important;
-  outline: none !important;
-  color: rgba(255, 255, 255, 0.95) !important;
+/* Seletor ultra-específico para garantir aplicacao */
+body #channels-container button .canal-action-btn,
+body #channels-container button span.canal-action-btn {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Botão canal específico - canto superior direito */
+#channels-container button .canal-btn {
+  top: 0 !important;
+  right: 0 !important;
+  background: rgba(147, 51, 234, 0.8) !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+#channels-container button .canal-btn:hover {
+  background: rgba(147, 51, 234, 1) !important;
   transform: scale(1.1) !important;
-  box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.25),
-    0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
+/* Botão informações específico - FORÇA MÁXIMA */
+#channels-container button .info-btn,
+#channels-container button span.info-btn,
+body #channels-container button .info-btn {
+  position: absolute !important;
+  top: 0 !important;
+  right: 16px !important;
+  background: rgba(107, 114, 128, 0.8) !important;
+  color: white !important;
+  font-weight: bold !important;
+  border-radius: 50% !important;
+  text-align: center !important;
+  width: 12px !important;
+  height: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  /* REMOVIDO COMPLETAMENTE: vertical-align para evitar conflitos */
+  vertical-align: unset !important;
+}
+
+#channels-container button .info-btn:hover {
+  background: rgba(107, 114, 128, 1) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Cores específicas por tipo de canal */
+
+/* Premium - Amarelo/Dourado */
+#channels-container button[class*="from-amber-500"] .info-btn,
+#channels-container button[class*="from-amber-500"] .canal-btn {
+  background: rgba(245, 158, 11, 0.8) !important;
+}
+#channels-container button[class*="from-amber-500"] .info-btn:hover,
+#channels-container button[class*="from-amber-500"] .canal-btn:hover {
+  background: rgba(245, 158, 11, 1) !important;
+}
+
+/* Plus - Roxo */
+#channels-container button[class*="from-purple-500"] .info-btn,
+#channels-container button[class*="from-purple-500"] .canal-btn {
+  background: rgba(168, 85, 247, 0.8) !important;
+}
+#channels-container button[class*="from-purple-500"] .info-btn:hover,
+#channels-container button[class*="from-purple-500"] .canal-btn:hover {
+  background: rgba(168, 85, 247, 1) !important;
+}
+
+/* Normal - Azul */
+#channels-container button[class*="from-blue-500"] .info-btn,
+#channels-container button[class*="from-blue-500"] .canal-btn {
+  background: rgba(59, 130, 246, 0.8) !important;
+}
+#channels-container button[class*="from-blue-500"] .info-btn:hover,
+#channels-container button[class*="from-blue-500"] .canal-btn:hover {
+  background: rgba(59, 130, 246, 1) !important;
+}
+
+/* Iniciante - Verde */
+#channels-container button[class*="from-emerald-500"] .info-btn,
+#channels-container button[class*="from-emerald-500"] .canal-btn {
+  background: rgba(16, 185, 129, 0.8) !important;
+}
+#channels-container button[class*="from-emerald-500"] .info-btn:hover,
+#channels-container button[class*="from-emerald-500"] .canal-btn:hover {
+  background: rgba(16, 185, 129, 1) !important;
+}
+
+/* Custom - Ciano */
+#channels-container button.canal-custom .info-btn,
+#channels-container button.canal-custom .canal-btn {
+  background: rgba(6, 182, 212, 0.8) !important;
+  color: white !important;
+}
+#channels-container button.canal-custom .info-btn:hover,
+#channels-container button.canal-custom .canal-btn:hover {
+  background: rgba(6, 182, 212, 1) !important;
+}
+
+/* Desertor - Cinza */
+#channels-container button[class*="from-gray-400"] .info-btn,
+#channels-container button[class*="from-gray-400"] .canal-btn {
+  background: rgba(107, 114, 128, 0.8) !important;
+}
+#channels-container button[class*="from-gray-400"] .info-btn:hover,
+#channels-container button[class*="from-gray-400"] .canal-btn:hover {
+  background: rgba(107, 114, 128, 1) !important;
+}
+
+/* Status indicator com mesmo tamanho dos botões */
+#channels-container button [id^="status-"] {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 12px !important;
+  height: 12px !important;
+  min-width: 12px !important;
+  max-width: 12px !important;
+  min-height: 12px !important;
+  max-height: 12px !important;
+  border-radius: 50% !important;
+  z-index: 5 !important;
+}
+
+/* Responsividade para telas menores - FORÇA MÁXIMA */
+@media (max-width: 768px) {
+  #channels-container button .canal-action-btn,
+  #channels-container button span.canal-action-btn,
+  body #channels-container button .canal-action-btn {
+    width: 12px !important;
+    height: 12px !important;
+    min-width: 12px !important;
+    max-width: 12px !important;
+    min-height: 12px !important;
+    max-height: 12px !important;
+    font-size: 0.6rem !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  #channels-container button [id^="status-"] {
+    width: 12px !important;
+    height: 12px !important;
+  }
+}
+
+/* Regras adicionais para garantir que nada sobrescreva */
+.canal-action-btn.info-btn[style],
+.canal-action-btn.canal-btn[style] {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+}
+
+/* Estilos para avatares dos cards de canal */
+#channels-container button [id^="avatar-"] img {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  border-radius: 8px !important;
+  object-fit: cover !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+#channels-container button [id^="avatar-"]:hover img {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  transform: scale(1.02) !important;
+}
+
+/* Responsividade para avatares */
+@media (max-width: 768px) {
+  #channels-container button [id^="avatar-"] img {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    border-radius: 6px !important;
+  }
+}
+
+/* Estilo para canais custom */
 #channels-container button.canal-custom {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(243, 244, 246, 0.5) 100%) !important;
   background-image: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(243,244,246,0.5) 100%) !important;
   color: #23272a !important;
   border: 1.5px solid #e5e7eb !important;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05) !important;
+}
+
+/* HACK FINAL - FORÇAR ATUALIZAÇÃO E CORREÇÃO DOS BOTÕES CIRCULARES */
+/* Esta regra deve funcionar mesmo com cache ativo */
+[class*="canal-action-btn"][class*="info-btn"],
+[class~="canal-action-btn"][class~="info-btn"],
+span.canal-action-btn.info-btn,
+.info-btn.canal-action-btn {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: unset !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  font-size: 0.5rem !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 16px !important;
+  background: rgba(107, 114, 128, 0.8) !important;
+  color: white !important;
+  font-weight: bold !important;
+  z-index: 10 !important;
+  transition: all 0.2s ease !important;
+  backdrop-filter: blur(4px) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  min-width: 12px !important;
+  max-width: 12px !important;
+  min-height: 12px !important;
+  max-height: 12px !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }

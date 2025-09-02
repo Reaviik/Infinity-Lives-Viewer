@@ -109,12 +109,12 @@ class StatsDashboard {
     // Atualizar classe ativa nas abas
     const tabs = document.querySelectorAll('.stats-tab');
     tabs.forEach(tab => {
-      tab.classList.remove('bg-purple-600', 'text-white');
+      tab.classList.remove('active');
       tab.classList.add('bg-gray-800', 'text-gray-300');
       
       if (tab.getAttribute('data-tab') === tabName) {
         tab.classList.remove('bg-gray-800', 'text-gray-300');
-        tab.classList.add('bg-purple-600', 'text-white');
+        tab.classList.add('active');
       }
     });
     

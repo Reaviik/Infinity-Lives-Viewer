@@ -261,8 +261,8 @@ function renderLives() {
 
     liveDiv.innerHTML = `
       <div class="flex flex-row gap-2 absolute top-1 right-2 z-20">
-        <button onclick="closeLive('${channel}')" title="Fechar" class="live-action-btn w-8 h-8 rounded-lg text-white font-semibold text-base flex items-center justify-center">×</button>
-        <button onclick="window.favoritarCanal && window.favoritarCanal('${channel}');this.classList.toggle('text-yellow-400');this.classList.toggle('text-gray-400');" title="Favoritar" class="live-action-btn w-8 h-8 rounded-lg font-semibold text-base flex items-center justify-center ${isFav ? 'text-yellow-400' : 'text-gray-400'}">★</button>
+        <button onclick="closeLive('${channel}')" title="Fechar" class="live-action-btn w-4 h-4 rounded-lg text-white font-semibold text-base flex items-center justify-center">×</button>
+        <button onclick="window.favoritarCanal && window.favoritarCanal('${channel}');this.classList.toggle('text-yellow-400');this.classList.toggle('text-gray-400');" title="Favoritar" class="live-action-btn w-4 h-4 rounded-lg font-semibold text-base flex items-center justify-center ${isFav ? 'text-yellow-400' : 'text-gray-400'}">★</button>
       </div>
       <div class="mb-2 text-center text-sm text-gray-300">Canal: <span class="font-semibold">${twitchChannels[channel] ? twitchChannels[channel].name : channel}</span></div>
       <div class='w-full flex-1 relative' style="display: flex; flex-direction: column; overflow: hidden;">
@@ -367,8 +367,8 @@ function addLiveWindow(channel) {
 
   liveDiv.innerHTML = `
     <div class="flex flex-row gap-2 absolute top-1 right-2 z-20">
-      <button onclick="window.favoritarCanal && window.favoritarCanal('${channel}');this.classList.toggle('text-yellow-400');this.classList.toggle('text-gray-400');" title="Favoritar" class="live-action-btn w-8 h-8 rounded-lg font-semibold text-base flex items-center justify-center ${isFav ? 'text-yellow-400' : 'text-gray-400'}">★</button>
-      <button onclick="closeLive('${channel}')" title="Fechar" class="live-action-btn w-8 h-8 rounded-lg text-white font-semibold text-base flex items-center justify-center">×</button>
+      <button onclick="window.favoritarCanal && window.favoritarCanal('${channel}');this.classList.toggle('text-yellow-400');this.classList.toggle('text-gray-400');" title="Favoritar" class="live-action-btn w-4 h-4 rounded-lg font-semibold text-base flex items-center justify-center ${isFav ? 'text-yellow-400' : 'text-gray-400'}">★</button>
+      <button onclick="closeLive('${channel}')" title="Fechar" class="live-action-btn w-4 h-4 rounded-lg text-white font-semibold text-base flex items-center justify-center">×</button>
     </div>
     <div class="mb-2 text-center text-sm text-gray-300">Canal: <span class="font-semibold">${twitchChannels[channel] ? twitchChannels[channel].name : channel}</span></div>
     <div class='w-full flex-1 relative' style="display: flex; flex-direction: column; overflow: hidden;">

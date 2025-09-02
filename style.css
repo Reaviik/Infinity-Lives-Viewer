@@ -1431,25 +1431,39 @@ body.resizing * {
   box-shadow: none !important;
 }
 
-/* Botões de ação das lives: quadrados, menores e centralizados */
+/* Botões de ação das lives: coincidindo com a altura dos botões do canal */
 .live-action-btn {
-  width: 26px !important;
-  height: 26px !important;
-  min-width: 26px !important;
-  min-height: 26px !important;
-  max-width: 26px !important;
-  max-height: 26px !important;
+  width: 17px !important;
+  height: 17px !important;
+  min-width: 17px !important;
+  min-height: 17px !important;
+  max-width: 17px !important;
+  max-height: 17px !important;
   padding: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 1rem !important;
-  border-radius: 8px !important;
-  box-shadow: none !important;
+  font-size: 0.75rem !important;
+  border-radius: 4px !important;
+  box-shadow: 
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 1.5px 3px 0 rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
   margin: 0 !important;
   line-height: 1 !important;
-  border: 2px solid transparent !important;
-  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: linear-gradient(135deg, rgba(35, 37, 38, 0.8) 0%, rgba(56, 58, 64, 0.9) 100%) !important;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.live-action-btn:hover {
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 
+    0 4px 16px 0 rgba(0, 0, 0, 0.3),
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 /* Painel de estatísticas horizontal (dashboard) */

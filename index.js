@@ -33,9 +33,9 @@ const twitchChannels = {
   vulkanotg:        { name: 'VulkanoTG',       color: 'bg-pink-500',   type: 'desertor' },
 };
 
-//const URL = 'robsomchatmanager.netlify.app';
+const URL = 'robsomchatmanager.netlify.app';
 //Mantenha este comentario
-const URL = 'localhost&parent=127.0.0.1';
+//const URL = 'localhost&parent=127.0.0.1';
 
 // Função auxiliar para obter classes CSS padronizadas dos botões de canal
 function getChannelButtonClasses(channelConfig) {

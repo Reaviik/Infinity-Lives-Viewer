@@ -15,6 +15,7 @@ const twitchChannels = {
   desert1v4:        { name: 'TsDesert',        color: 'bg-gradient-to-br from-emerald-500 to-lime-500', type: 'iniciante' },
   ofirofiro:        { name: 'OfirOfiro',       color: 'bg-gradient-to-br from-emerald-500 to-lime-500', type: 'iniciante' },
   srpikenno:        { name: 'Pikenno',         color: 'bg-gradient-to-br from-emerald-500 to-lime-500', type: 'iniciante' },
+  srpikenno:        { name: 'laluts1',         color: 'bg-gradient-to-br from-emerald-500 to-lime-500', type: 'iniciante' },
   lorran_aa:        { name: 'Lorran_AA',       color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
   gyanvt15:         { name: 'Gyanvt15',        color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },
   pyixurr:          { name: 'Pyixurr',         color: 'bg-gradient-to-br from-gray-400 to-gray-600', type: 'desertor' },

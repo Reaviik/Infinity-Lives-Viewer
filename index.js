@@ -1,4 +1,4 @@
-// Lista de canais disponíveis
+// Lista de canais disponíveis para lives
 const twitchChannels = {
   moldador:         { name: 'Moldador',        color: 'bg-gradient-to-br from-amber-500 to-orange-500', type: 'premium' },
   lucyjapinha:      { name: 'Lucyjapinha',     color: 'bg-gradient-to-br from-amber-500 to-orange-500', type: 'premium' },
